@@ -35,7 +35,6 @@ def create_donki(date, donki_url = None):
     """Create and return a new item."""
     donki = Donki(donki_url = donki_url,
                 )
-    #can I get the date from the flask route?
     db.session.add(donki)
     db.session.commit()
 
@@ -45,7 +44,6 @@ def create_epic(date, epic_url = None):
     """Create and return a new item."""
     epic = Epic(epic_url = epic_url
                 )
-    #can i get the epic date from the flask route?
     db.session.add(epic)
     db.session.commit()
 

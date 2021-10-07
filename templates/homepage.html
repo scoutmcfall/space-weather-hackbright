@@ -9,7 +9,7 @@
 {% endblock head %}
 {% block body %}
   <h1>Welcome!</h1>
-  <p>There was a coronal mass ejection on {{date}} traveling at {{cme_speed}} km/s!</p>
+  <p>Watch out! Coronal mass ejection on {{date}} traveling at {{cme_speed}} km/s!</p>
   <p>It {{impact}} hit Earth.</p>
   <p>If it's hitting Earth, it will arrive at this time: {{arrival}}</p>
   <p>This picture was taken on: {{epicdate}}</p>
@@ -52,6 +52,11 @@
     <label for="1star">1 STAR</label><br> -->
     <input type = "text" name = "num_stars" >
     <input type = "text" name = "comment" >
+    <input type="hidden" name="epic_url" value="{{epic_url}}">
+    <input type="hidden" name="donki_url" value="{{donki_url}}">
+<!-- create two inputs, one each for donki and epic containing respective url as 
+  the value, and the name (donki url and epicurl) 
+  could hide date in here too-->
     <p>
       <input type="submit">
     </p>

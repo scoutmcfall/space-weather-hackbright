@@ -38,8 +38,10 @@ def homepage():
     startDate = str(today - timedelta(days=30))
     endDate = str(today)
     #res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=2021-9-28&endDate=2021-9-28&api_key=DEMO_KEY')
+    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY
     res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY)
     search_results = res.json()
+    #pass the object in the render template so i'll have access in the html, and can pass it in the form
     report = search_results[-1]['impactList'] #what to do if this is a null object?
     print(report)
     if report != None:
@@ -60,7 +62,7 @@ def homepage():
         cme_speed = search_results[-1]['cmeInputs'][0]['speed']
  
     return render_template('homepage.html', img_url=img_url, epicdate = epicdate, 
-                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed)
+                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, donki_url = donki_url, epic_url = img_url)
 
 @app.route("/users", methods=["POST"])
 def register_user():
@@ -88,14 +90,17 @@ def handle_login():
     password = request.form.get("login_password")
     # - use customers.get_by_email() to retrieve corresponding User
     #   object (if any)
-    user = crud.get_user_by_email("email") #query to db
+    user = crud.get_user_by_email(email) #query to db
     # - if a Customer with that email was found, check the provided password
     #   against the stored one
-
+    print("*********************")
+    print(user)
+    print(email)
+    print(password)
     if user:
         if user.password == password:
             session["user_email"] = user.email #all routes have access to session
-            session["user_id"] = user.id
+            session["user_id"] = user.user_id
             flash ("Success! Verified! Time to rate this photo of the earth.")
             return redirect ("/")
         else:
@@ -109,13 +114,21 @@ def handle_login():
 @app.route("/rate", methods = ["POST"])
 def handle_rating():
     """Log the rating."""
-    rating = int(requests.form.get("num_stars"))
-    rating_obj = crud.create_rating(rating)
-    session["user_id"] = user_id
-    rating_date = date.today()
-    donki_id = #how to get the ids of the photo and forecast on the page?
-    epic_id = 
-    comment = requests.form.get("comment")
+    rating = int(request.form.get("num_stars"))
+    donki_url = request.form.get("donki_url")
+    epic_url = request.form.get("epic_url")
+    #date = requests.form.get(date)
+    date = date.today()
+    comment = request.form.get("comment")
+    #create donki object 
+    donki_object = crud.create_donki(date, donki_url)
+
+    #create epic object
+    epic_object = crud.create_epic(date, epic_url)
+    #create rating
+    crud.create_rating(rating, session["user_id"], 
+                        donki_object.id, epic_object.id, comment)
+
 
     #use crud function to change the rating to be an integer
     #use crud fxn to create a rating with that use and the time they're trying to rate
