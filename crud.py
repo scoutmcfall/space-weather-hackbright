@@ -17,10 +17,9 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
-def create_rating(user,rating, user_id = None, rating_date = None, donki_id = None, epic_id = None, comment = None):
+def create_rating(rating, user_id = None, rating_date = None, donki_id = None, epic_id = None, comment = None):
     """Create and return a new rating."""
-    rating = Rating(user=user,
-                    rating=rating,
+    rating = Rating(rating=rating,
                     rating_date = rating_date,
                     donki_id = donki_id,
                     epic_id = epic_id,
@@ -36,7 +35,7 @@ def create_donki(date, donki_url = None):
     """Create and return a new item."""
     donki = Donki(donki_url = donki_url,
                 )
-  
+    #can I get the date from the flask route?
     db.session.add(donki)
     db.session.commit()
 
@@ -46,11 +45,12 @@ def create_epic(date, epic_url = None):
     """Create and return a new item."""
     epic = Epic(epic_url = epic_url
                 )
-  
+    #can i get the epic date from the flask route?
     db.session.add(epic)
     db.session.commit()
 
     return epic
+
 
 if __name__ == '__main__':
     from server import app

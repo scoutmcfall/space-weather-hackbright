@@ -6,8 +6,8 @@ from model import connect_to_db
 import crud
 import os
 import requests
-from datetime import date, timedelta
 from jinja2 import StrictUndefined
+from datetime import date, timedelta, datetime
 
 
 app = Flask(__name__)
@@ -96,7 +96,7 @@ def handle_login():
         if user.password == password:
             session["user_email"] = user.email #all routes have access to session
             session["user_id"] = user.id
-            flash ("Success! Verified!")
+            flash ("Success! Verified! Time to rate this photo of the earth.")
             return redirect ("/")
         else:
             flash ("FAILURE")
@@ -104,6 +104,27 @@ def handle_login():
     else:
         flash ("DOES NOT EXIST. PLEASE TRY AGAIN")
         return redirect("/")
+
+
+@app.route("/rate", methods = ["POST"])
+def handle_rating():
+    """Log the rating."""
+    rating = int(requests.form.get("num_stars"))
+    rating_obj = crud.create_rating(rating)
+    session["user_id"] = user_id
+    rating_date = date.today()
+    donki_id = #how to get the ids of the photo and forecast on the page?
+    epic_id = 
+    comment = requests.form.get("comment")
+
+    #use crud function to change the rating to be an integer
+    #use crud fxn to create a rating with that use and the time they're trying to rate
+    #and the number of stars they're rating
+    #they thing they're trying to rate might already be in th database so i have to check to see if 
+    #other users have rated that same thing and show them together
+    #something I can search by (primary key? generated url?)
+    #have 1 crud fxn that does all of this together and makes it one database commit
+    return redirect("/")
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

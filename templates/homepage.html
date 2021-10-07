@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Space Weather Home{% endblock %}
+{% block js %}
+  <script src="earth-rating/ratingearth.js" type="earth.js"></script>
+{% endblock %}
 
+{% block head %} 
+
+{% endblock head %}
 {% block body %}
   <h1>Welcome!</h1>
   <p>There was a coronal mass ejection on {{date}} traveling at {{cme_speed}} km/s!</p>
@@ -39,4 +45,15 @@
     </p>
   </form>
 
+  <p>Rate this Earth from 1-5 stars:</p>
+
+  <form action = '/rate'>
+    <!-- <input type="radio" id="1star" name="earth_rating" value="1star">
+    <label for="1star">1 STAR</label><br> -->
+    <input type = "text" name = "num_stars" >
+    <input type = "text" name = "comment" >
+    <p>
+      <input type="submit">
+    </p>
+  </form>
 {% endblock %}
