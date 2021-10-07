@@ -93,10 +93,7 @@ def handle_login():
     user = crud.get_user_by_email(email) #query to db
     # - if a Customer with that email was found, check the provided password
     #   against the stored one
-    print("*********************")
-    print(user)
-    print(email)
-    print(password)
+    
     if user:
         if user.password == password:
             session["user_email"] = user.email #all routes have access to session
@@ -114,11 +111,12 @@ def handle_login():
 @app.route("/rate", methods = ["POST"])
 def handle_rating():
     """Log the rating."""
+    from datetime import date
     rating = int(request.form.get("num_stars"))
     donki_url = request.form.get("donki_url")
     epic_url = request.form.get("epic_url")
     #date = requests.form.get(date)
-    date = date.today()
+    rating_date = date.today()
     comment = request.form.get("comment")
     #create donki object 
     donki_object = crud.create_donki(date, donki_url)
@@ -126,8 +124,8 @@ def handle_rating():
     #create epic object
     epic_object = crud.create_epic(date, epic_url)
     #create rating
-    crud.create_rating(rating, session["user_id"], 
-                        donki_object.id, epic_object.id, comment)
+    crud.create_rating(rating, session["user_id"], rating_date,
+                        donki_object.donki_id, epic_object.epic_id, comment)
 
 
     #use crud function to change the rating to be an integer

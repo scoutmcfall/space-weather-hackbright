@@ -47,10 +47,11 @@
 
   <p>Rate this Earth from 1-5 stars:</p>
 
-  <form action = '/rate'>
+  <form action = '/rate' method = "POST">
     <!-- <input type="radio" id="1star" name="earth_rating" value="1star">
     <label for="1star">1 STAR</label><br> -->
     <input type = "text" name = "num_stars" >
+    <p>Leave a comment:</p>
     <input type = "text" name = "comment" >
     <input type="hidden" name="epic_url" value="{{epic_url}}">
     <input type="hidden" name="donki_url" value="{{donki_url}}">
