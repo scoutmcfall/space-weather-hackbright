@@ -42,7 +42,7 @@ def homepage():
     res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY)
     search_results = res.json()
     #pass the object in the render template so i'll have access in the html, and can pass it in the form
-    report = search_results[-1]['impactList'] #what to do if this is a null object?
+    report = search_results[-1]["impactList"] 
   
     if report != None:
         report = search_results[-1]['impactList'][0]
@@ -50,21 +50,24 @@ def homepage():
         if impact == True:
                 impact = "will"
                 blow = "Just a glancing blow, whatever that means."
-        else:
-                impact = "will not"
-                datetime = report["arrivalTime"].split("T")
-                date = datetime[0]
                 arrival = report["arrivalTime"].split("T")[1]
                 cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
-                blow = ""
+                date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+        else:
+            impact = "will not"
+            datetime = report["arrivalTime"].split("T")
+            date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+        #     arrival = report["arrivalTime"].split("T")[1]
+        #     cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+            blow = ""
     else:
         impact = "will not"
         date = search_results[-1]['modelCompletionTime'].split("T")[0]
-        arrival = 'Sorry nope'
+        arrival = "Sorry nope"
         cme_speed = search_results[-1]['cmeInputs'][0]['speed']
         blow = ""
  
-    return render_template('homepage.html', img_url=img_url, epicdate = epicdate, 
+    return render_template("homepage.html", img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, donki_url = donki_url, epic_url = img_url, blow = blow)
 
 @app.route("/users", methods=["POST"])
