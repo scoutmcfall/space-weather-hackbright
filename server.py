@@ -43,26 +43,29 @@ def homepage():
     search_results = res.json()
     #pass the object in the render template so i'll have access in the html, and can pass it in the form
     report = search_results[-1]['impactList'] #what to do if this is a null object?
-    print(report)
+  
     if report != None:
         report = search_results[-1]['impactList'][0]
         impact = report['isGlancingBlow']
         if impact == True:
                 impact = "will"
+                blow = "Just a glancing blow, whatever that means."
         else:
                 impact = "will not"
-        datetime = report['arrivalTime'].split('T')
-        date = datetime[0]
-        arrival = report['arrivalTime'].split("T")[1]
-        cme_speed = search_results[-1]['cmeInputs'][0]['speed']
+                datetime = report["arrivalTime"].split("T")
+                date = datetime[0]
+                arrival = report["arrivalTime"].split("T")[1]
+                cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+                blow = ""
     else:
         impact = "will not"
         date = search_results[-1]['modelCompletionTime'].split("T")[0]
         arrival = 'Sorry nope'
         cme_speed = search_results[-1]['cmeInputs'][0]['speed']
+        blow = ""
  
     return render_template('homepage.html', img_url=img_url, epicdate = epicdate, 
-                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, donki_url = donki_url, epic_url = img_url)
+                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, donki_url = donki_url, epic_url = img_url, blow = blow)
 
 @app.route("/users", methods=["POST"])
 def register_user():
@@ -128,13 +131,10 @@ def handle_rating():
                         donki_object.donki_id, epic_object.epic_id, comment)
 
 
-    #use crud function to change the rating to be an integer
-    #use crud fxn to create a rating with that use and the time they're trying to rate
-    #and the number of stars they're rating
     #they thing they're trying to rate might already be in th database so i have to check to see if 
     #other users have rated that same thing and show them together
     #something I can search by (primary key? generated url?)
-    #have 1 crud fxn that does all of this together and makes it one database commit
+   
     return redirect("/")
 
 if __name__ == "__main__":
