@@ -3,8 +3,50 @@
 
 
 {% block head %} 
-
+<style>
+  *{
+      margin: 0;
+      padding: 0;
+  }
+  .rate {
+      border: 1px solid #cccccc;
+      float: left;
+      height: 46px;
+      padding: 0 10px;
+  }
+  .rate:not(:checked) > input {
+      position:absolute;
+      top:-9999px;
+  }
+  .rate:not(:checked) > label {
+      float:right;
+      width:1em;
+      overflow:hidden;
+      white-space:nowrap;
+      cursor:pointer;
+      font-size:30px;
+      color:#ccc;
+  }
+  .rate:not(:checked) > label:before {
+      content: '★ ';
+  }
+  .rate > input:checked ~ label {
+      color: #ffc700;    
+  }
+  .rate:not(:checked) > label:hover,
+  .rate:not(:checked) > label:hover ~ label {
+      color: #deb217;  
+  }
+  .rate > input:checked + label:hover,
+  .rate > input:checked + label:hover ~ label,
+  .rate > input:checked ~ label:hover,
+  .rate > input:checked ~ label:hover ~ label,
+  .rate > label:hover ~ input:checked ~ label {
+      color: #c59b08;
+  }
+  </style>
 {% endblock head %}
+
 {% block body %}
   <h1>Welcome!</h1>
   <p>Watch out! Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
@@ -46,7 +88,7 @@
   <p>Rate this Earth from 1-5 stars:</p>
 
   <form action = '/rate' method = "POST">
-    <input type="radio" id="1star" name="num_stars" value="1">
+    <!-- <input type="radio" id="1star" name="num_stars" value="1">
     <label for="1star">1 STAR</label><br>
     <input type="radio" id="1star" name="num_stars" value="2">
     <label for="2star">2 STARS</label><br>
@@ -55,8 +97,21 @@
     <input type="radio" id="1star" name="num_stars" value="4">
     <label for="4star">4 STARS</label><br>
     <input type="radio" id="1star" name="num_stars" value="5">
-    <label for="5star">5 STARS</label><br>
+    <label for="5star">5 STARS</label><br> -->
 
+    <div class="rate">
+      <input type="radio" id="star5" name="num_stars" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star4" name="num_stars" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star3" name="num_stars" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star2" name="num_stars" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star1" name="num_stars" value="1" />
+      <label for="star1" title="text">1 star</label>
+    </div>
+    <br>
     <!-- <input type = "text" name = "num_stars" > -->
     <p>Leave a comment:</p>
     <input type = "text" name = "comment" >
@@ -69,5 +124,5 @@
       <input type="submit">
     </p>
   </form>
-
+   
 {% endblock %}

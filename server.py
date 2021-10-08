@@ -130,9 +130,7 @@ def handle_rating():
     """Log the rating."""
     from datetime import date
     rating = int(request.form.get("num_stars"))
-#     rating = request.form.get("num_stars")
-    print("***************")
-    print(rating)
+
     donki_url = request.form.get("donki_url")
     epic_url = request.form.get("epic_url")
     #date = requests.form.get(date)
