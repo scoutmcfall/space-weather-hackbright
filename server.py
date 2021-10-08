@@ -89,8 +89,7 @@ def register_user():
     password = request.form.get("password")
 
     user = crud.get_user_by_email(email)
-    print("********************")
-    print(user)
+ 
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
