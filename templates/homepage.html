@@ -70,6 +70,10 @@
   <p>This picture was taken on: {{epicdate}}</p>
   <img src= {{img_url}} width="300" height="300">
 
+  <!-- jinja: if user email not in session, display these things: -->
+{% if session['user_email'] == None %}
+
+
       <h3>Create an account:</h3>
       <p>
       <form action="/users" method="POST">
@@ -86,7 +90,7 @@
           <input type="submit" name="anything_submit" value="Submit" onclick="loading();">
       </form>
       </p>
-
+{% else %}
   <p>Rate this Earth from 1-5 stars:</p>
 
   <form action = '/rate' method = "POST">
@@ -115,7 +119,7 @@
   </form>
   
 </div> 
-  
+{% endif %} 
 <script type="text/javascript">
     function loading(){
         $("#loading").show();

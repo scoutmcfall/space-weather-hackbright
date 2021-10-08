@@ -93,8 +93,10 @@ def register_user():
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
-        crud.create_user(email, password)
-        flash("Account created! Please log in.")
+        user = crud.create_user(email, password)
+        session["user_email"] = user.email #all routes have access to session
+       
+        flash("Account created! You are logged in. Time to rate this photo of the earth.")
 
     return redirect("/")
 
