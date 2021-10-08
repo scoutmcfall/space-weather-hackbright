@@ -48,14 +48,14 @@ def homepage():
         report = search_results[-1]['impactList'][0]
         impact = report['isGlancingBlow']
         if impact == True:
-                impact = "will"
-                blow = "Just a glancing blow, whatever that means."
-                arrival = report["arrivalTime"].split("T")[1]
-                arrival_statement = "Time of impact:" + arrival
-                cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
-                cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
-
-                date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+            impact = "will"
+            blow = "Just a glancing blow, whatever that means."
+            arrival = report["arrivalTime"].split("T")[1]
+            arrival_statement = "Time of impact:" + arrival
+            cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+            cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+            format_cme_time = cme_time[:-1]
+            date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
         else:
             impact = "will not"
             datetime = report["arrivalTime"].split("T")
@@ -73,6 +73,7 @@ def homepage():
         arrival_statement = ""
         cme_speed = search_results[-1]['cmeInputs'][0]['speed']
         cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+        format_cme_time = cme_time[:-1]
         blow = ""
  
     return render_template("homepage.html", img_url=img_url, epicdate = epicdate, 
@@ -129,6 +130,9 @@ def handle_rating():
     """Log the rating."""
     from datetime import date
     rating = int(request.form.get("num_stars"))
+#     rating = request.form.get("num_stars")
+    print("***************")
+    print(rating)
     donki_url = request.form.get("donki_url")
     epic_url = request.form.get("epic_url")
     #date = requests.form.get(date)
@@ -143,7 +147,7 @@ def handle_rating():
     crud.create_rating(rating, session["user_id"], rating_date,
                         donki_object.donki_id, epic_object.epic_id, comment)
 
-
+    flash ("Success! You have rated this earth photo.")
     #they thing they're trying to rate might already be in th database so i have to check to see if 
     #other users have rated that same thing and show them together
     #something I can search by (primary key? generated url?)
