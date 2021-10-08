@@ -20,8 +20,8 @@ API_KEY = os.environ["API_KEY"]
 @app.route('/')
 def homepage():
     """View homepage containing EPIC photo and DONKI forecast"""
-#get epic photo
-    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'
+#get most recent epic photo
+    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'
     #get the filename first
     res = requests.get(file_url)
     search_result = res.json()
@@ -51,24 +51,34 @@ def homepage():
                 impact = "will"
                 blow = "Just a glancing blow, whatever that means."
                 arrival = report["arrivalTime"].split("T")[1]
+                arrival_statement = "Time of impact:" + arrival
                 cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+                cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+
                 date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
         else:
             impact = "will not"
             datetime = report["arrivalTime"].split("T")
-            date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
-        #     arrival = report["arrivalTime"].split("T")[1]
-        #     cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+            date = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[0]
+            cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+            format_cme_time = cme_time[:-1]
+            arrival = ""
+            arrival_statement = ""
+            cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
             blow = ""
     else:
         impact = "will not"
         date = search_results[-1]['modelCompletionTime'].split("T")[0]
-        arrival = "Sorry nope"
+        arrival = ""
+        arrival_statement = ""
         cme_speed = search_results[-1]['cmeInputs'][0]['speed']
+        cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
         blow = ""
  
     return render_template("homepage.html", img_url=img_url, epicdate = epicdate, 
-                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, donki_url = donki_url, epic_url = img_url, blow = blow)
+                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
+                        donki_url = donki_url, epic_url = img_url, blow = blow, 
+                        arrival_statement = arrival_statement, format_cme_time = format_cme_time)
 
 @app.route("/users", methods=["POST"])
 def register_user():
