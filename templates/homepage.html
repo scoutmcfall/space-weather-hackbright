@@ -73,7 +73,6 @@
   <!-- jinja: if user email not in session, display these things: -->
 {% if session['user_email'] == None %}
 
-
       <h3>Create an account:</h3>
       <p>
       <form action="/users" method="POST">
@@ -110,20 +109,35 @@
     <p></p>
     <!-- <input type = "text" name = "comment" > -->
     </div>
-    Leave a comment: <input type="text" name="comment" placeholder="gimme that comment">
+    <!-- Leave a comment: <input type="text" name="comment" placeholder="gimme that comment"> -->
     <input type="hidden" name="epic_url" value="{{epic_url}}">
     <input type="hidden" name="donki_url" value="{{donki_url}}">
     <p>
-      <input type="submit" onclick="loading();">
+      <input type="submit" onclick = "leaveAComment()";>
     </p>
   </form>
-  
+  <p id="demo"></p>
 </div> 
 {% endif %} 
+
 <script type="text/javascript">
     function loading(){
         $("#loading").show();
         $("#content").hide();       
     }
+</script>
+
+<script>
+function leaveAComment() {
+  let text;
+  let person = prompt("Please say more about your feelings about this earth photo:",);
+  if (person == null || person == "") {
+    text = "User declined to say more.";
+  } else {
+    text = "Thank you for the following comment: " + person ;
+// how to send the comment to the rating route in server?
+  }
+  document.getElementById("demo").innerHTML = text;
+}
 </script>
 {% endblock %}
