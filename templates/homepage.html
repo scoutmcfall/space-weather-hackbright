@@ -9,7 +9,7 @@
   background-color: black;
   font-family: sans-serif;
   color: white;
-  font-size: 5vw;
+  font-size: 3vw;
 }
 /* css for star rating: */
   *{
@@ -75,9 +75,39 @@
 .epicP:hover + .hide {
   display: block;
   color: white;
-  font-size: 5vw;
+  font-size: 3vw;
+}
+/* Split the screen in half */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: black;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+  background-color: black;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 </style>
  
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -90,19 +120,55 @@
             </a>
             <h1> Thank you for waiting while we go to space and back.</h1>
   </div>
-  
-<div id="content">
-  <h1>Watch Out!</h1>
-  <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
-  <p>It {{impact}} hit Earth. {{blow}}</p>
-  <p>{{arrival_statement}}</p>
- 
-  
-<div class="epicP">
-  <img src= {{img_url}} width="300" height="300">
+
+<div class="split left">
+  <div class="centered">
+    <div id="content">
+      <h1>Watch Out!</h1>
+      <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
+      <p>It {{impact}} hit Earth. {{blow}}</p>
+      <p>{{arrival_statement}}</p>      
+  </div>
 </div>
-<div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+
+<div class="split right">
+  <div class="centered">
+    <div class="epicP">
+      <img src= {{img_url}} width="300" height="300">
+    </div>
+    <div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+    </div>
+      <p>Rate this Earth from 1-5 stars:</p>
+
+  <form action = '/rate' method = "POST">
+    <div class="rate">
+      <input type="radio" id="star5" name="num_stars" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star4" name="num_stars" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star3" name="num_stars" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star2" name="num_stars" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star1" name="num_stars" value="1" />
+      <label for="star1" title="text">1 star</label>
+      <br>
+      <br>
+  
+
+  </div>
+    Leave a comment: <input type="text" name="comment" placeholder="gimme that comment">
+    <input type="hidden" name="epic_url" value="{{epic_url}}">
+    <input type="hidden" name="donki_url" value="{{donki_url}}">
+    <p>
+      <input type="submit" onclick="loading();">
+    </p>
+  </form>
+    </div>
+  </div>
 </div>
+  
+
   <!-- jinja: if user email not in session, display these things: -->
 {% if session['user_email'] == None %}
 
@@ -123,7 +189,7 @@
       </form>
       </p>
 {% else %}
-  <p>Rate this Earth from 1-5 stars:</p>
+  <!-- <p>Rate this Earth from 1-5 stars:</p>
 
   <form action = '/rate' method = "POST">
     <div class="rate">
@@ -139,7 +205,7 @@
       <label for="star1" title="text">1 star</label>
       <br>
       <br>
-    <p></p>
+  
 
   </div>
     Leave a comment: <input type="text" name="comment" placeholder="gimme that comment">
@@ -148,7 +214,7 @@
     <p>
       <input type="submit" onclick="loading();">
     </p>
-  </form>
+  </form> -->
   
 </div> 
 {% endif %} 
