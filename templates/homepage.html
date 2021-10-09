@@ -4,6 +4,13 @@
 
 {% block head %} 
 <style>
+/* dark mode babyyyyyyyyy */
+  body {
+  background-color: black;
+  font-family: sans-serif;
+  color: white;
+}
+/* css for star rating: */
   *{
       margin: 0;
       padding: 0;
@@ -45,12 +52,20 @@
       color: #c59b08;
   }
   div#loading {
-    width: 480px;
-    height: 480px;
-    display: none;
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: url(https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp);
-    cursor: wait;
-    }
+    /* background-color: rgba(0,0,0,0.5); Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
 /* styling for hover over epic photo for date */
 .hide {
   display: none;
@@ -121,8 +136,8 @@
       <br>
       <br>
     <p></p>
-    <!-- <input type = "text" name = "comment" > -->
-    </div>
+
+  </div>
     Leave a comment: <input type="text" name="comment" placeholder="gimme that comment">
     <input type="hidden" name="epic_url" value="{{epic_url}}">
     <input type="hidden" name="donki_url" value="{{donki_url}}">
@@ -130,7 +145,7 @@
       <input type="submit" onclick="loading();">
     </p>
   </form>
-  <p id="demo"></p>
+  
 </div> 
 {% endif %} 
 
