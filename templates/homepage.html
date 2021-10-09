@@ -51,6 +51,15 @@
     background: url(https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp);
     cursor: wait;
     }
+/* styling for hover over epic photo for date */
+.hide {
+  display: none;
+}
+    
+.epicP:hover + .hide {
+  display: block;
+  color: black;
+}
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock head %}
@@ -68,9 +77,13 @@
   <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
   <p>It {{impact}} hit Earth. {{blow}}</p>
   <p>{{arrival_statement}}</p>
-  <p>This picture was taken on: {{epicdate}}</p>
+ 
+  
+<div class="epicP">
   <img src= {{img_url}} width="300" height="300">
-
+</div>
+<div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+</div>
   <!-- jinja: if user email not in session, display these things: -->
 {% if session['user_email'] == None %}
 
@@ -128,17 +141,4 @@
     }
 </script>
 
-<!-- <script>
-function leaveAComment() {
-  let text;
-  let person = prompt("Please say more about your feelings about this earth photo:",);
-  if (person == null || person == "") {
-    text = "User declined to say more.";
-  } else {
-    text = "Thank you for the following comment: " + person ;
-// how to send the comment to the rating route in server?
-  }
-  document.getElementById("demo").innerHTML = text;
-}
-</script> -->
 {% endblock %}
