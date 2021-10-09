@@ -84,7 +84,7 @@
   position: fixed;
   z-index: 1;
   top: 0;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   padding-top: 20px;
 }
 
@@ -140,7 +140,9 @@
     <div class="epicP">
       <img src= {{img_url}} width="500" height="500">
     </div>
-    <div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+      <!-- jinja: if user email not in session, display these things: -->
+     <div class = "account">
+    {% if session.get("user_email", None) %}
     </div>
     <!-- <p>Rate this Earth from 1-5 stars:</p> -->
 
@@ -163,65 +165,33 @@
     <input type="text" name="comment" placeholder="leave a comment">
     <input type="hidden" name="epic_url" value="{{epic_url}}">
     <input type="hidden" name="donki_url" value="{{donki_url}}">
-    <p>
-      <input type="submit" onclick="loading();">
-    </p>
+    <input type="submit" onclick="loading();">
     </form>
   </div>
+    {% else %}
+    
+    <form action="/users" method="POST">
+        <input type="text" name="email" placeholder="hey what's your email">
+        <input type="text" name="password" placeholder="hey what's your password">
+        <input type="submit" name="anything_submit" value="Create an Account" onclick="loading();">
+    </form>
+    
+    <form action="/handle-login" method="POST">
+        <input type="text" name="login_email" placeholder="gimme that email">
+        <input type="text" name="login_password" placeholder="gimme that password">
+        <input type="submit" name="anything_submit" value="Log In" onclick="loading();">
+    </form>
+    </p>
+    {% endif %} 
+    </div>
+
+    <div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+   
     </div>
   </div>
-</div>
-  
+<!-- </div> -->
 
-  <!-- jinja: if user email not in session, display these things: -->
-{% if session['user_email'] == None %}
-
-      <h3>Create an account:</h3>
-      <p>
-      <form action="/users" method="POST">
-          Email<input type="text" name="email" placeholder="hey what's your email">
-          Password <input type="text" name="password" placeholder="hey what's your password">
-          <input type="submit" name="anything_submit" value="Submit" onclick="loading();">
-      </form>
-      </p>
-      <h3>Log in:</h3>
-      <p>
-      <form action="/handle-login" method="POST">
-          Email<input type="text" name="login_email" placeholder="gimme that email">
-          Password <input type="text" name="login_password" placeholder="gimme that password">
-          <input type="submit" name="anything_submit" value="Submit" onclick="loading();">
-      </form>
-      </p>
-{% else %}
-  <!-- <p>Rate this Earth from 1-5 stars:</p>
-
-  <form action = '/rate' method = "POST">
-    <div class="rate">
-      <input type="radio" id="star5" name="num_stars" value="5" />
-      <label for="star5" title="text">5 stars</label>
-      <input type="radio" id="star4" name="num_stars" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="num_stars" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="num_stars" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star1" name="num_stars" value="1" />
-      <label for="star1" title="text">1 star</label>
-      <br>
-      <br>
-  
-
-  </div>
-    Leave a comment: <input type="text" name="comment" placeholder="gimme that comment">
-    <input type="hidden" name="epic_url" value="{{epic_url}}">
-    <input type="hidden" name="donki_url" value="{{donki_url}}">
-    <p>
-      <input type="submit" onclick="loading();">
-    </p>
-  </form> -->
-  
 </div> 
-{% endif %} 
 
 <script type="text/javascript">
     function loading(){
@@ -230,4 +200,4 @@
     }
 </script>
 
-{% endblock %}
+{% endblock body %}
