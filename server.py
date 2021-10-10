@@ -153,6 +153,47 @@ def handle_rating():
    
     return redirect("/")
 
+@app.route("/profile", methods = ["GET"])
+def display_profile():
+        """display user details"""
+        return render_template("profile.html")
+        
+# @app.route("/profile-update", methods = ["POST"])
+# def update_profile():
+#         """update email and/or passowrd"""
+#         #get email from session object
+#         #use get user by email in crud?
+#         #then i have the user.password- did i have that before?
+#         #display template including input boxes for old password and two new passwords
+#         #probably a good example out there
+#         #loading screen then redirect to home page?
+#         #eventually display all the images the user has rated plus their ratings?
+#         email = request.form.get("change_email")
+#         password = request.form.get("change_password")
+#         new_email = request.form.get("new_email")
+#         new_password = request.form.get("new_password")
+#         # - use customers.get_by_email() to retrieve corresponding User
+#         #   object (if any)
+#         user = crud.get_user_by_email(email) #query to db
+#         # - if a Customer with that email was found, check the provided password
+#         #   against the stored one
+        
+#         if user:
+#                 if user.password == password:
+#                         user.password = new_password
+#                         user.user_email = new_email
+#                         flash ("Success! Your information has been updated.")
+#                         return redirect ("/profile")
+#                 else:
+#                         flash ("FAILURE")
+#                         return redirect("/profile")
+#         else:
+#                 flash ("DOES NOT EXIST. PLEASE TRY AGAIN")
+#                 return redirect("/profile")
+
+#         #include these variables in the return eventually num_rates = num_rates, user.user_email = user.user_email, 
+#         return render_template("profile.html")
+
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
