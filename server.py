@@ -167,7 +167,7 @@ def handle_rating():
         crud.create_rating(rating = rating, user_id = user_id, rating_date = rating_date,
                                 donki_id = donki_object.donki_id, epic_id = epic_object.epic_id, comment = comment)
         average_photo_rating = crud.get_avg_photo_rating(epic_object.epic_id)
-        flash (f"Success! You have rated this earth photo. Here's what it's been rated on average {average_photo_rating}")  
+        flash (f"Success! You have rated this earth photo. Here's what it's been rated on average {average_photo_rating}", "msg")  
 
     return redirect("/")
 

@@ -26,8 +26,7 @@ def create_rating(rating, user_id= None, rating_date = None, donki_id = None, ep
                     epic_id = epic_id,
                     comment = comment
                     )
-    print("crud*****************")
-    print(user_id, rating)
+  
     db.session.add(rating)
     db.session.commit()
 
@@ -37,8 +36,7 @@ def search_ratings(user_id, epic_id):
     """return a rating object based on user_id and epic_id"""
     
     result_obj = Rating.query.filter(Rating.user_id == user_id and Rating.epic_id == epic_id).first()
-    print("*****************\n")
-    print(result_obj)
+    
     if result_obj != None:
         return True
     else:

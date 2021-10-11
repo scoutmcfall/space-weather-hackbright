@@ -11,11 +11,16 @@
       {% block title %}{% endblock %}
     </title>
 
-    {% block head %}{% endblock %}
+    {% block head %}
+    <style>
+    .flash-msg {
+      color: white}
+    </style>
+    {% endblock %}
   </head>
   <body>
     {% for msg in get_flashed_messages() %}
-      <p class="flash-msg" style = "color: white;">
+      <p class="flash-msg">
         {{ msg }}
       </p>
     {% endfor %}

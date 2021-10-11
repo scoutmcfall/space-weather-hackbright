@@ -24,7 +24,7 @@ class Donki(db.Model):
     donki_id = db.Column(db.Integer,
                         autoincrement = True,
                         primary_key = True)
-    donki_url = db.Column(db.String)
+    donki_url = db.Column(db.String, unique = True)
     date = db.Column(db.DateTime)
 
     def __repr__(self):
@@ -37,7 +37,7 @@ class Epic(db.Model):
     epic_id = db.Column(db.Integer,
                         autoincrement = True,
                         primary_key = True)
-    epic_url = db.Column(db.String)
+    epic_url = db.Column(db.String, unique = True)
     date = db.Column(db.DateTime)
     #put unique contraint on epic url, 
     def __repr__(self):
