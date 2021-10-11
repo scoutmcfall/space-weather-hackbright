@@ -151,8 +151,8 @@ def handle_rating():
         #create rating
         crud.create_rating(rating, session["user_id"], rating_date,
                                 donki_object.donki_id, epic_object.epic_id, comment)
-        average_rating = crud.get_avg_rating(epic_object.epic_id)
-        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_rating)  
+        average_photo_rating = crud.get_avg_rating(epic_object.epic_id)
+        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_rating_photo_rating)  
 
     return redirect("/")
 
@@ -161,7 +161,9 @@ def display_profile():
         """display user details"""
         #SELECT * FROM ratings WHERE user_id = session["user_id"]
         #whatever the length of that is = num_rates
-        return render_template("profile.html")
+        num_rates = crud.get_total_user_rating(session["user_id"])
+        avg_user_rating = crud.get_avg_user_rating(session["user_id"])
+        return render_template("profile.html", num_rates = num_rates, avg_user_rating = avg_user_rating)
         
 @app.route("/profile-update", methods = ["POST"])
 def update_profile():

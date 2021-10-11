@@ -36,10 +36,36 @@ def search_ratings(user_id, epic_id):
     
     return Rating.query.filter(User.user_id == user_id and Epic.epic_id == epic_id).first()
 
-def get_avg_rating(epic_id):
+def get_avg_photo_rating(epic_id):
     """return average rating for epic photo."""
     #not sure if this is the right way to do it
-    return (Rating.query.filter(Rating.epic_id == epic_id).all()).avg()
+    
+    variable = Rating.query.filter(Rating.epic_id == epic_id).all()
+    total = 0
+    for i in variable:
+        total  += i.rating
+    return total/(len(variable))
+
+def get_avg_user_rating(user_id):
+    """return average of all ratings by user."""
+    #not sure about this one either
+    variable =  Rating.query.filter(Rating.user_id == user_id).all()
+    total = 0
+    for i in variable:
+        total += i.rating
+    if len(variable) != 0:
+        return total/(len(variable))
+    else:
+        return 0
+
+def get_total_user_rating(user_id):
+    """return number of all ratings by user."""
+    #not sure about this one either
+    variable =  Rating.query.filter(Rating.user_id == user_id).all()
+    total = 0
+    for i in variable:
+        total += i
+    return total
 
 def create_donki(date, donki_url = None):
     """Create and return a new item."""
