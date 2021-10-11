@@ -151,11 +151,8 @@ def handle_rating():
         #create rating
         crud.create_rating(rating, session["user_id"], rating_date,
                                 donki_object.donki_id, epic_object.epic_id, comment)
-
-        flash ("Success! You have rated this earth photo.")  
-    #they thing they're trying to rate might already be in th database so i have to check to see if 
-    #other users have rated that same thing and show them together
-    #something I can search by (primary key? generated url?)
+        average_rating = crud.get_avg_rating(epic_object.epic_id)
+        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_rating)  
 
     return redirect("/")
 

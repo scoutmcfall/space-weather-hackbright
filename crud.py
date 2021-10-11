@@ -32,10 +32,14 @@ def create_rating(rating, user_id = None, rating_date = None, donki_id = None, e
     return rating
 
 def search_ratings(user_id, epic_id):
-   """return a rating object based on user_id and epic_id"""
+    """return a rating object based on user_id and epic_id"""
     
-    return Rating.query.filter(User.email == email and Epic.epic_id == epic_id).first()
+    return Rating.query.filter(User.user_id == user_id and Epic.epic_id == epic_id).first()
 
+def get_avg_rating(epic_id):
+    """return average rating for epic photo."""
+    #not sure if this is the right way to do it
+    return (Rating.query.filter(Rating.epic_id == epic_id).all()).avg()
 
 def create_donki(date, donki_url = None):
     """Create and return a new item."""
