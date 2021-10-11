@@ -46,11 +46,11 @@ def get_avg_photo_rating(epic_id):
         total  += i.rating
     return total/(len(variable))
 
-def get_avg_user_rating(user_email):
+def get_avg_user_rating(user_id):
     """return average of all ratings by user."""
     #not sure about this one either
-    user_obj = User.query.filter(User.email == user_email).first()
-    variable =  Rating.query.filter(Rating.user_id == user_obj.user_id).all()
+    # user_obj = User.query.filter(User.user_id == user_id).first()
+    variable =  Rating.query.filter(Rating.user_id == user_id).all()
     total = 0
     for i in variable:
         total += i.rating
@@ -59,12 +59,12 @@ def get_avg_user_rating(user_email):
     else:
         return 0
 
-def get_total_user_rating(user_email):
+def get_total_user_rating(user_id):
     """return number of all ratings by user."""
     #select rating from ratings where rating.user_id == user_id
     #so i need to get the user_id
-    user_obj = User.query.filter(User.email == user_email).first()
-    variable =  Rating.query.filter(Rating.user_id == user_obj.user_id).all()
+    # user_obj = User.query.filter(User.user_id == user_id).first()
+    variable =  Rating.query.filter(Rating.user_id == user_id).all()
     total = 0
     for i in variable:
         total += i
