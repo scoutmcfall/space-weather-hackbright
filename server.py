@@ -140,26 +140,34 @@ def handle_rating():
     rating = int(request.form.get("num_stars"))
     user_obj = crud.get_user_by_email(session["user_email"])
     user_id = user_obj.user_id
+    print("********************")
+    print(user_id)
+
     donki_url = request.form.get("donki_url")
     epic_url = request.form.get("epic_url")
     #date = requests.form.get(date)
     rating_date = date.today()
     comment = request.form.get("comment")
+    
     #create donki object 
     donki_object = crud.create_donki(date, donki_url)
 
-    #create epic object
+    #create epic object: do something about repeats!
     epic_object = crud.create_epic(date, epic_url)
     
     #check to see if user has already rated this object
-    if crud.search_ratings(session["user_email"], epic_object.epic_id):
-        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
+    if crud.search_ratings(user_id, epic_object.epic_id) == True:
+        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")
+        print("**************************\n")
+        print("we're in the if!")    
     else:
+        print("************************\n")
+        print("we're in the else!")
         #create rating
-        crud.create_rating(rating, user_id, rating_date,
-                                donki_object.donki_id, epic_object.epic_id, comment)
+        crud.create_rating(rating = rating, user_id = user_id, rating_date = rating_date,
+                                donki_id = donki_object.donki_id, epic_id = epic_object.epic_id, comment = comment)
         average_photo_rating = crud.get_avg_photo_rating(epic_object.epic_id)
-        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_photo_rating)  
+        flash (f"Success! You have rated this earth photo. Here's what it's been rated on average {average_photo_rating}")  
 
     return redirect("/")
 

@@ -39,7 +39,7 @@ class Epic(db.Model):
                         primary_key = True)
     epic_url = db.Column(db.String)
     date = db.Column(db.DateTime)
-
+    #put unique contraint on epic url, 
     def __repr__(self):
         return f'<Epic epic_id = {self.epic_id}>'
 
@@ -87,3 +87,4 @@ if __name__ == "__main__":
         # query it executes.
 
         connect_to_db(app)
+        db.create_all()
