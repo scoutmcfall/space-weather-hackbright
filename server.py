@@ -145,21 +145,18 @@ def handle_rating():
     
     #check to see if user has already rated this object
     #SELECT rating_id FROM ratings WHERE session["user_id"] AND epic_object.epic_id;
-#     if rating.user_id and rating.epic_id not in db.ratings:
+    if crud.search_ratings(session["user_id"], epic_object.epic_id):
+        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
+    else:
         #create rating
-#         crud.create_rating(rating, session["user_id"], rating_date,
-#                                 donki_object.donki_id, epic_object.epic_id, comment)
+        crud.create_rating(rating, session["user_id"], rating_date,
+                                donki_object.donki_id, epic_object.epic_id, comment)
 
-#         flash ("Success! You have rated this earth photo.")
-#     else:
-#         flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
+        flash ("Success! You have rated this earth photo.")  
     #they thing they're trying to rate might already be in th database so i have to check to see if 
     #other users have rated that same thing and show them together
     #something I can search by (primary key? generated url?)
-    crud.create_rating(rating, session["user_id"], rating_date,
-                                donki_object.donki_id, epic_object.epic_id, comment)
 
-    flash ("Success! You have rated this earth photo.")
     return redirect("/")
 
 @app.route("/profile", methods = ["GET"])

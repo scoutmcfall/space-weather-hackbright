@@ -31,6 +31,12 @@ def create_rating(rating, user_id = None, rating_date = None, donki_id = None, e
 
     return rating
 
+def search_ratings(user_id, epic_id):
+   """return a rating object based on user_id and epic_id"""
+    
+    return Rating.query.filter(User.email == email and Epic.epic_id == epic_id).first()
+
+
 def create_donki(date, donki_url = None):
     """Create and return a new item."""
     donki = Donki(donki_url = donki_url,
