@@ -142,25 +142,36 @@ def handle_rating():
 
     #create epic object
     epic_object = crud.create_epic(date, epic_url)
-    #create rating
-    crud.create_rating(rating, session["user_id"], rating_date,
-                        donki_object.donki_id, epic_object.epic_id, comment)
+    
+    #check to see if user has already rated this object
+    #SELECT rating_id FROM ratings WHERE session["user_id"] AND epic_object.epic_id;
+#     if rating.user_id and rating.epic_id not in db.ratings:
+        #create rating
+#         crud.create_rating(rating, session["user_id"], rating_date,
+#                                 donki_object.donki_id, epic_object.epic_id, comment)
 
-    flash ("Success! You have rated this earth photo.")
+#         flash ("Success! You have rated this earth photo.")
+#     else:
+#         flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
     #they thing they're trying to rate might already be in th database so i have to check to see if 
     #other users have rated that same thing and show them together
     #something I can search by (primary key? generated url?)
-   
+    crud.create_rating(rating, session["user_id"], rating_date,
+                                donki_object.donki_id, epic_object.epic_id, comment)
+
+    flash ("Success! You have rated this earth photo.")
     return redirect("/")
 
 @app.route("/profile", methods = ["GET"])
 def display_profile():
         """display user details"""
+        #SELECT * FROM ratings WHERE user_id = session["user_id"]
+        #whatever the length of that is = num_rates
         return render_template("profile.html")
         
-# @app.route("/profile-update", methods = ["POST"])
-# def update_profile():
-#         """update email and/or passowrd"""
+@app.route("/profile-update", methods = ["POST"])
+def update_profile():
+        """update email and/or passowrd"""
 #         #get email from session object
 #         #use get user by email in crud?
 #         #then i have the user.password- did i have that before?
@@ -168,28 +179,28 @@ def display_profile():
 #         #probably a good example out there
 #         #loading screen then redirect to home page?
 #         #eventually display all the images the user has rated plus their ratings?
-#         email = request.form.get("change_email")
-#         password = request.form.get("change_password")
-#         new_email = request.form.get("new_email")
-#         new_password = request.form.get("new_password")
+        email = request.form.get("change_email")
+        password = request.form.get("change_password")
+        new_email = request.form.get("new_email")
+        new_password = request.form.get("new_password")
 #         # - use customers.get_by_email() to retrieve corresponding User
 #         #   object (if any)
-#         user = crud.get_user_by_email(email) #query to db
+        user = crud.get_user_by_email(email) #query to db
 #         # - if a Customer with that email was found, check the provided password
 #         #   against the stored one
         
-#         if user:
-#                 if user.password == password:
-#                         user.password = new_password
-#                         user.user_email = new_email
-#                         flash ("Success! Your information has been updated.")
-#                         return redirect ("/profile")
-#                 else:
-#                         flash ("FAILURE")
-#                         return redirect("/profile")
-#         else:
-#                 flash ("DOES NOT EXIST. PLEASE TRY AGAIN")
-#                 return redirect("/profile")
+        if user:
+                if user.password == password:
+                        user.password = new_password
+                        user.user_email = new_email
+                        flash ("Success! Your information has been updated.")
+                        return redirect ("/profile")
+                else:
+                        flash ("FAILURE")
+                        return redirect("/profile")
+        else:
+                flash ("DOES NOT EXIST. PLEASE TRY AGAIN")
+                return redirect("/profile")
 
 #         #include these variables in the return eventually num_rates = num_rates, user.user_email = user.user_email, 
 #         return render_template("profile.html")
