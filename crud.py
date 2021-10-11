@@ -71,29 +71,35 @@ def get_total_user_rating(user_id):
     #so i need to get the user_id
     # user_obj = User.query.filter(User.user_id == user_id).first()
     rating_obj_list =  Rating.query.filter(Rating.user_id == user_id).all()
-    total = 0
-    for rating_obj in rating_obj_list:
-        total += rating_obj.rating
-    return total
+    # total = 0
+    # for i in len(rating_obj_list):
+    #     total += rating_obj
+    return len(rating_obj_list)
 
 def create_donki(date, donki_url = None):
-    """Create and return a new item."""
-    donki = Donki(donki_url = donki_url,
-                )
-    db.session.add(donki)
-    db.session.commit()
-    #try to make a epic object, and if you get an error, then instead of making new one use existing one
-
-    return donki
+    """Create and return a new donki unless the donki already exists."""
+    donki_search = Donki.query.filter(Donki.donki_url == donki_url).first()
+    if donki_search != None:
+        return donki_search
+    else:
+        donki = Donki(donki_url = donki_url,
+                    )
+        db.session.add(donki)
+        db.session.commit()
+        return donki
 
 def create_epic(date, epic_url = None):
     """Create and return a new item."""
-    epic = Epic(epic_url = epic_url
-                )
-    db.session.add(epic)
-    db.session.commit()
-    #try to make a epic object, and if you get an error, then instead of making new one use existing one
-    return epic
+    epic_search = Epic.query.filter(Epic.epic_url == epic_url).first()
+    if epic_search != None:
+        return epic_search
+    else:
+        epic = Epic(epic_url = epic_url
+                    )
+        db.session.add(epic)
+        db.session.commit()
+        #try to make a epic object, and if you get an error, then instead of making new one use existing one
+        return epic
 
 
 if __name__ == '__main__':

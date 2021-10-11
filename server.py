@@ -115,7 +115,7 @@ def handle_login():
     if user:
         if user.password == password:
             session["user_email"] = user.email #all routes have access to session
-        #     session["user_id"] = user.user_id
+            session["user_id"] = user.user_id
             flash ("Success! Verified! Time to rate this photo of the earth.")
             return redirect ("/")
         else:
@@ -140,9 +140,7 @@ def handle_rating():
     rating = int(request.form.get("num_stars"))
     user_obj = crud.get_user_by_email(session["user_email"])
     user_id = user_obj.user_id
-    print("********************")
-    print(user_id)
-
+  
     donki_url = request.form.get("donki_url")
     epic_url = request.form.get("epic_url")
     #date = requests.form.get(date)
@@ -157,12 +155,8 @@ def handle_rating():
     
     #check to see if user has already rated this object
     if crud.search_ratings(user_id, epic_object.epic_id) == True:
-        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")
-        print("**************************\n")
-        print("we're in the if!")    
+        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")  
     else:
-        print("************************\n")
-        print("we're in the else!")
         #create rating
         crud.create_rating(rating = rating, user_id = user_id, rating_date = rating_date,
                                 donki_id = donki_object.donki_id, epic_id = epic_object.epic_id, comment = comment)
@@ -174,10 +168,9 @@ def handle_rating():
 @app.route("/profile", methods = ["GET"])
 def display_profile():
         """display user details"""
-        #SELECT * FROM ratings WHERE user_id = session["user_id"]
-        #whatever the length of that is = num_rates
         user_obj = crud.get_user_by_email(session["user_email"])
         user_id = user_obj.user_id
+        
         num_rates = crud.get_total_user_rating(user_id)
         avg_user_rating = crud.get_avg_user_rating(user_id)
         return render_template("profile.html", num_rates = num_rates, avg_user_rating = avg_user_rating)
