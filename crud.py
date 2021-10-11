@@ -31,10 +31,10 @@ def create_rating(rating, user_id = None, rating_date = None, donki_id = None, e
 
     return rating
 
-def search_ratings(user_id, epic_id):
+def search_ratings(user_email, epic_id):
     """return a rating object based on user_id and epic_id"""
     
-    return Rating.query.filter(User.user_id == user_id and Epic.epic_id == epic_id).first()
+    return Rating.query.filter(User.email == user_email and Epic.epic_id == epic_id).first()
 
 def get_avg_photo_rating(epic_id):
     """return average rating for epic photo."""
@@ -46,10 +46,11 @@ def get_avg_photo_rating(epic_id):
         total  += i.rating
     return total/(len(variable))
 
-def get_avg_user_rating(user_id):
+def get_avg_user_rating(user_email):
     """return average of all ratings by user."""
     #not sure about this one either
-    variable =  Rating.query.filter(Rating.user_id == user_id).all()
+    user_obj = User.query.filter(User.email == user_email).first()
+    variable =  Rating.query.filter(Rating.user_id == user_obj.user_id).all()
     total = 0
     for i in variable:
         total += i.rating
@@ -58,10 +59,12 @@ def get_avg_user_rating(user_id):
     else:
         return 0
 
-def get_total_user_rating(user_id):
+def get_total_user_rating(user_email):
     """return number of all ratings by user."""
-    #not sure about this one either
-    variable =  Rating.query.filter(Rating.user_id == user_id).all()
+    #select rating from ratings where rating.user_id == user_id
+    #so i need to get the user_id
+    user_obj = User.query.filter(User.email == user_email).first()
+    variable =  Rating.query.filter(Rating.user_id == user_obj.user_id).all()
     total = 0
     for i in variable:
         total += i

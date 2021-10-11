@@ -151,8 +151,7 @@ def handle_rating():
     epic_object = crud.create_epic(date, epic_url)
     
     #check to see if user has already rated this object
-    #SELECT rating_id FROM ratings WHERE session["user_id"] AND epic_object.epic_id;
-    if len(crud.search_ratings(session["user_id"], epic_object.epic_id)) != 0:
+    if crud.search_ratings(session["user_email"], epic_object.epic_id):
         flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
     else:
         #create rating
@@ -168,8 +167,8 @@ def display_profile():
         """display user details"""
         #SELECT * FROM ratings WHERE user_id = session["user_id"]
         #whatever the length of that is = num_rates
-        num_rates = crud.get_total_user_rating(session["user_id"])
-        avg_user_rating = crud.get_avg_user_rating(session["user_id"])
+        num_rates = crud.get_total_user_rating(session["user_email"])
+        avg_user_rating = crud.get_avg_user_rating(session["user_email"])
         return render_template("profile.html", num_rates = num_rates, avg_user_rating = avg_user_rating)
         
 @app.route("/profile-update", methods = ["POST"])
