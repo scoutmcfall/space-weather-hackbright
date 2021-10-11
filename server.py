@@ -125,6 +125,13 @@ def handle_login():
         flash ("DOES NOT EXIST. PLEASE TRY AGAIN")
         return redirect("/")
 
+@app.route("/logout")
+def handle_logout():
+    """log out the user"""
+#     session.clear
+    for key in list(session.keys()):
+        session.pop(key)
+    return redirect("/")
 
 @app.route("/rate", methods = ["POST"])
 def handle_rating():
@@ -145,14 +152,14 @@ def handle_rating():
     
     #check to see if user has already rated this object
     #SELECT rating_id FROM ratings WHERE session["user_id"] AND epic_object.epic_id;
-    if crud.search_ratings(session["user_id"], epic_object.epic_id):
+    if len(crud.search_ratings(session["user_id"], epic_object.epic_id)) != 0:
         flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")    
     else:
         #create rating
         crud.create_rating(rating, session["user_id"], rating_date,
                                 donki_object.donki_id, epic_object.epic_id, comment)
-        average_photo_rating = crud.get_avg_rating(epic_object.epic_id)
-        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_rating_photo_rating)  
+        average_photo_rating = crud.get_avg_photo_rating(epic_object.epic_id)
+        flash ("Success! You have rated this earth photo. Here's what it's been rated on average" + average_photo_rating)  
 
     return redirect("/")
 
