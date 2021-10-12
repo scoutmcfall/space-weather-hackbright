@@ -48,7 +48,7 @@
     On average, you rate photos of the earth {{avg_user_rating}} out of 5 stars.
     <br>
     Would you like to update your information?
-    <input type="button" name="answer" value="Update email/password" onclick="showDiv()" />
+    <input type="button" name="update-info" value="Update email/password" onclick="showDiv()" />
 </div>
 
 <div id = "update-info" style = "display:none;">
@@ -71,7 +71,14 @@
         $("#content").hide();       
     }
     function showDiv() {
-   document.getElementById("update-info").style.display = "block";
+        // document.getElementById("update-info").style.display = "block";
+        var x = document.getElementById("update-info");
+
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
 }
 </script>
 

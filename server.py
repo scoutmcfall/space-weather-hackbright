@@ -195,7 +195,7 @@ def update_email():
 def update_password():
         """update password"""
         email = session["user_email"]
-        user = crud.get_user_by_email(new_email)
+        user = crud.get_user_by_email(email)
         password = request.form.get("change_password")
         new_password = request.form.get("new_password")
         #check to see if old password matches, and change password if it does
@@ -214,4 +214,4 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     app.run(debug=True)
- #app.run(host="0.0.0.0", debug=True)
+    # app.run(host="0.0.0.0", debug=True)
