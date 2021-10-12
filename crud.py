@@ -12,6 +12,27 @@ def create_user(email, password):
 
     return user
 
+def update_user_email(email, new_email):
+    """Change email"""
+    #get user email from session, not from form
+    user = User.query.filter(User.email == email).first()
+    user.email = new_email
+    
+    db.session.commit()
+
+    return user
+
+def update_user_password(email, password, new_password):
+    """Change password"""
+    #get user email from session and get password that way?
+    #maybe better to check to see if the password is right
+    user = User.query.filter(User.email == email).first()
+    user.password = new_password
+    
+    db.session.commit()
+
+    return user
+
 def get_user_by_email(email):
     """Return a user by email."""
 
@@ -67,13 +88,9 @@ def get_avg_user_rating(user_id):
 
 def get_total_user_rating(user_id):
     """return number of all ratings by user."""
-    #select rating from ratings where rating.user_id == user_id
-    #so i need to get the user_id
-    # user_obj = User.query.filter(User.user_id == user_id).first()
+  
     rating_obj_list =  Rating.query.filter(Rating.user_id == user_id).all()
-    # total = 0
-    # for i in len(rating_obj_list):
-    #     total += rating_obj
+    
     return len(rating_obj_list)
 
 def create_donki(date, donki_url = None):
