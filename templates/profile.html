@@ -50,13 +50,16 @@
     <br>
     Would you like to update your information?
 </p>
-<form action="/profile-update" method="POST">
+<form action="/email-update" method="POST">
     <!-- <input type="text" name="change_email" placeholder="Give me old email" style="height:26px;font-size:14pt;"> -->
     <input type="text" name="new_email" placeholder="Give me new email." style="height:26px;font-size:14pt;">
-<br>
+    <input type="submit" class = "button" name="anything_submit" value="Update email" onclick="loading();">
+</form>
+    <br>
+<form action="/password-update" method="POST">
     <input type="text" name="change_password" placeholder="Give me old password" style="height:26px;font-size:14pt;">
     <input type="text" name="new_password" placeholder="Give me new password" style="height:26px;font-size:14pt;">
-    <input type="submit" class = "button" name="anything_submit" value="Update user info" onclick="loading();">
+    <input type="submit" class = "button" name="anything_submit" value="Change password" onclick="loading();">
 </form>
 </div>
 

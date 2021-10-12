@@ -175,32 +175,38 @@ def display_profile():
         avg_user_rating = crud.get_avg_user_rating(user_id)
         return render_template("profile.html", num_rates = num_rates, avg_user_rating = avg_user_rating)
         
-@app.route("/profile-update", methods = ["POST"])
-def update_profile():
-        """update email and/or passowrd"""
-        user = crud.get_user_by_email(session["user_email"])
-
-        email = session["user_email"]
-        password = request.form.get("change_password")
+@app.route("/email-update", methods = ["POST"])
+def update_email():
+        """update email"""
         new_email = request.form.get("new_email")
-        new_password = request.form.get("new_password")
+        user = crud.get_user_by_email(new_email)
+        email = session["user_email"]
         #check to see if new_email already in db, and change info if not
         if user:
                 flash ("Sorry, taken, try again with a different email address.")
                 return redirect("/profile")
         else:
-                updated_user = crud.update_user_email(email = email, new_email = new_email)
+                user = crud.update_user_email(email = email, new_email = new_email)
+                session["user_email"] = user.email
+                session["user_id"] = user.user_id
                 return redirect("/profile")
 
+@app.route("/password-update", methods = ["POST"])
+def update_password():
+        """update password"""
+        email = session["user_email"]
+        user = crud.get_user_by_email(new_email)
+        password = request.form.get("change_password")
+        new_password = request.form.get("new_password")
         #check to see if old password matches, and change password if it does
         if user.password == password:
-            updated_user = crud.update_user_password(password = password, new_password = new_password)
+                crud.update_user_password(email = email, password = password, new_password = new_password)
 
-            flash ("Success! Your password has been changed.")
-            return redirect ("/profile")
+                flash ("Success! Your password has been changed.")
+                return redirect ("/profile")
         else:
-            flash ("FAILURE. Please reenter your current password for confirmation.")
-            return redirect("/profile")
+                flash ("FAILURE. Please reenter your current password for confirmation.")
+                return redirect("/profile")
         
 
 if __name__ == "__main__":
