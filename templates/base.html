@@ -13,17 +13,19 @@
 
     {% block head %}
     <style>
-    .flash-msg {
-      color: white}
+    .msg{
+      background-color: red;
+      color: white;}
     </style>
     {% endblock %}
   </head>
   <body>
-    {% for msg in get_flashed_messages() %}
-      <p class="flash-msg">
-        {{ msg }}
-      </p>
-    {% endfor %}
+  
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="{{category}}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
    
     {% block body %}{% endblock %}
 

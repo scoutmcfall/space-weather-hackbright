@@ -155,7 +155,7 @@ def handle_rating():
     
     #check to see if user has already rated this object
     if crud.search_ratings(user_id, epic_object.epic_id) == True:
-        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one")  
+        flash ("Sorry, you have already rated this photo of the earth. Please wait until there is a new one", "msg")  
     else:
         #create rating
         crud.create_rating(rating = rating, user_id = user_id, rating_date = rating_date,
