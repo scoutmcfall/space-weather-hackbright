@@ -16,6 +16,13 @@
     .msg{
       background-color: red;
       color: white;}
+      /* dark mode babyyyyyyyyy */
+    body {
+      background-color: black;
+      font-family: sans-serif;
+      color: white;
+      font-size: 3vw;
+  }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {% endblock %}
@@ -24,7 +31,7 @@
   
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% for category, message in messages %}
-        <div class="{{category}} msg">{{ message }}</div>
+        <div class="{{category}}">{{ message }}</div>
       {% endfor %}
     {% endwith %}
    

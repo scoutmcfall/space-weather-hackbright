@@ -165,7 +165,7 @@ def handle_rating():
 
     return redirect("/")
 
-@app.route("/profile", methods = ["GET"])
+@app.route("/profile")
 def display_profile():
         """display user details"""
         user_obj = crud.get_user_by_email(session["user_email"])
@@ -213,5 +213,5 @@ if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
 
-    app.run(debug=True)
-    # app.run(host="0.0.0.0", debug=True)
+    # app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
