@@ -131,6 +131,7 @@ def handle_logout():
 #     session.clear
     for key in list(session.keys()):
         session.pop(key)
+    flash ("You have successfully logged out.")
     return redirect("/")
 
 @app.route("/rate", methods = ["POST"])

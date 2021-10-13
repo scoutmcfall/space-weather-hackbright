@@ -78,6 +78,10 @@ def connect_to_db(flask_app, db_uri="postgresql:///space_weather", echo=True):
     db.init_app(flask_app)
 
     print("Connected to the db!")
+
+  # Potentially make fxn for tests.py sample data
+    # def example_data():
+    #     """Create some sample data."""
     
 if __name__ == "__main__":
         from server import app

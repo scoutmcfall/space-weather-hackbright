@@ -15,7 +15,7 @@ class TestServer(unittest.TestCase):
         os.system('createdb testdb')       
         connect_to_db(app, "postgresql:///testdb")
         db.create_all()
-        #create user
+        #create user to test profile page
         crud.create_user(email = "testperson", password = "password")
 
         with self.client as c:
@@ -32,50 +32,67 @@ class TestServer(unittest.TestCase):
 
     def tearDown(self):
         """Do at end of every test."""
-
-        #(uncomment when testing database)
         db.session.close()
         db.drop_all()
         os.system('dropdb testdb')
 
 
-# class TestsDatabase(unittest.TestCase):
-#     """Flask tests that use the database."""
+class TestsDatabase(unittest.TestCase):
+    """Flask tests that use the database."""
 
-#     def setUp(self):
-#         """Stuff to do before every test."""
-#         #commit a bunch of objs to the db to test on
-#         self.client = app.test_client()
-#         app.config['TESTING'] = True
+    def setUp(self):
+        """Stuff to do before every test."""
+        #commit a bunch of objs to the db to test on
+        self.client = app.test_client()
+        app.config['TESTING'] = True
+        os.system('createdb testdb')       
+   
+        #Connect to test database (uncomment when testing database)
+        connect_to_db(app, "postgresql:///testdb")
 
-#         #Connect to test database (uncomment when testing database)
-#         connect_to_db(app, "postgresql:///testdb")
+        #Create tables and add sample data (uncomment when testing database)
+        db.create_all()
+        #add test user
+        user = crud.create_user(email = "testperson", password = "password")
 
-#         #Create tables and add sample data (uncomment when testing database)
-#         db.create_all()
-#         # example_data() what do i do if i don't have example data
 
-#     def tearDown(self):
-#         """Do at end of every test."""
+    def tearDown(self):
+        """Do at end of every test."""
+        os.system('dropdb testdb')
+        db.session.close()
+        db.drop_all()
 
-#         #(uncomment when testing database)
-          #os.system('dropdb testdb')
-#         db.session.close()
-#         db.drop_all()
+    def test_rate(self):
+        """test that rating route works? ugh so many arguments"""
 
-#     def test_rate(self):
-#         """test that rating route works? ugh so many arguments"""
-#         rate_1 = Rating()
-        
-#         result = self.client.get("/rate")
-#         self.assertIn(b"what goes here", result.data)
+        test_rating = crud.create_rating(rating = 1, user_id = user.user_id, rating_date = 2021-10-12,
+                                donki_id = 1, epic_id = 1, comment = "comment")
+        result = self.client.get("/rate")
+        self.assertIn(b"You have rated this earth photo", result.data)
     
-#     def test_create_user(self):
-#         """test that the login works"""
-#         test_user = User("name", "password")
-#         #commit to db
+    def test_create_user(self):
+        """test that the crud user fxn works"""
+    
+        result = self.client.post("/users",
+                                    data={"email": "testperson", "password": "password"},
+                                    follow_redirects=True)
+        self.assertIn(b"Account created!", result.data)
+    
+    def test_login(self):
+        """Test handle-login route."""
 
-#         test_user.password = "password"
+        result = self.client.post("/handle-login",
+                                    data={"email": "testperson", "password": "password"},
+                                    follow_redirects=True)
+        self.assertIn(b"Success!", result.data)
+    
+    def test_logout(self):
+        """Test handle-logout route."""
+
+        result = self.client.post("/handle-logout",
+                                    data={"email": "testperson", "password": "password"},
+                                    follow_redirects=True)
+        self.assertIn(b"logged out!", result.data)
 
 
 if __name__ == "__main__":
