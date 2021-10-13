@@ -68,12 +68,17 @@
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
   }
-    
-.epicP:hover + .hide {
+ 
+.epic-date {
+  padding: 20px;
+  display: none;
+}
+.epicP:hover + .epic-date {
   display: block;
   color: white;
   font-size: 2vw;
 }
+
 /* Split the screen in half */
 .split {
   height: 100%;
@@ -199,6 +204,8 @@
     <div class="epicP">
       <img src= {{img_url}} width="500" height="500">
     </div>
+    <div class="epic-date">This picture was taken on: {{epicdate}}</div>
+
      
     <!-- jinja: if user email not in session, display these things: -->
     {% if session.get("user_email", None) %}
@@ -247,8 +254,6 @@
     {% endif %} 
     </div>
 
-    <div class="epic-date"> <p>This picture was taken on: {{epicdate}}</p>
-    </div>
   </div>
 </div> 
 

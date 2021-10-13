@@ -2,6 +2,8 @@ import unittest
 
 from server import app
 from model import db, connect_to_db
+import os
+import crud
 
 
 class TestServer(unittest.TestCase):
@@ -10,9 +12,15 @@ class TestServer(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
         app.config['TESTING'] = True
+        os.system('createdb testdb')       
+        connect_to_db(app, "postgresql:///testdb")
+        db.create_all()
+        #create user
+        crud.create_user(email = "testperson", password = "password")
+
         with self.client as c:
             with c.session_transaction() as sess:
-                sess['user_email'] = "speakfriendandenter"
+                sess['user_email'] = "testperson"
 
     def test_homepage(self):
         result = self.client.get("/")
@@ -22,6 +30,13 @@ class TestServer(unittest.TestCase):
         result = self.client.get("/profile")
         self.assertIn(b"Thank you", result.data)
 
+    def tearDown(self):
+        """Do at end of every test."""
+
+        #(uncomment when testing database)
+        db.session.close()
+        db.drop_all()
+        os.system('dropdb testdb')
 
 
 # class TestsDatabase(unittest.TestCase):
@@ -44,6 +59,7 @@ class TestServer(unittest.TestCase):
 #         """Do at end of every test."""
 
 #         #(uncomment when testing database)
+          #os.system('dropdb testdb')
 #         db.session.close()
 #         db.drop_all()
 
