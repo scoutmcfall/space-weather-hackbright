@@ -10,6 +10,9 @@
       color: white;
       font-size: 3vw;
   }
+  .msg{
+      background-color: red;
+      color: white;}
 /* css for star rating: */
   *{
       margin: 0;
@@ -65,11 +68,6 @@
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
   }
-
-/* styling for hover over epic photo for date */
-.hide {
-  display: none;
-}
     
 .epicP:hover + .hide {
   display: block;
@@ -81,7 +79,7 @@
   height: 100%;
   width: 50%;
   position: fixed;
-  z-index: 1;
+  z-index: -1;
   top: 0;
   /* overflow-x: hidden; */
   padding-top: 20px;
@@ -249,7 +247,7 @@
     {% endif %} 
     </div>
 
-    <div class="hide"> <p>This picture was taken on: {{epicdate}}</p>
+    <div class="epic-date"> <p>This picture was taken on: {{epicdate}}</p>
     </div>
   </div>
 </div> 
