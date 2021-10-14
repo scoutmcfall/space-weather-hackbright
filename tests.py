@@ -71,21 +71,24 @@ class TestsDatabase(unittest.TestCase):
     def test_rate(self):
         """test that rating route works? ugh so many arguments"""
 
-        test_rating = crud.create_rating(rating = 1, user_id = user.user_id, rating_date = 2021-10-12,
-                                donki_id = 1, epic_id = 1, comment = "comment")
-        result = self.client.get("/rate")
+        # test_rating = crud.create_rating(rating = 1, user_id = user.user_id, rating_date = 2021-10-12,
+        #                         donki_id = 1, epic_id = 1, comment = "comment")
+        # result = self.client.get("/rate")
+        #simulates making a post request to teh rate route in the server, what gets returned is 
+        # whatever would be returned from making a post requst to that route, which would be a string of html
+        result = self.client.post("/rate", data = {"num_stars" : 1, "rating_date" : "2021-10-12",
+                                "donki_id" : 1, "epic_id" : 1, "comment" : "comment"}, follow_redirects=True)
         self.assertIn(b"You have rated this earth photo", result.data)
-        #test would be that Rating.query.filter(user_id, epic_id) is true?
+       
 
     
     def test_create_user(self):
         """test that the crud user fxn works"""
     
         result = self.client.post("/users",
-                                    data={"email": "testperson", "password": "password"},
+                                    data={"email": "testperson1", "password": "password"},
                                     follow_redirects=True)
         self.assertIn(b"Account created!", result.data)
-        #test would be if User.query.filter("testperson") is true?
     
     def test_login(self):
         """Test handle-login route."""
@@ -94,16 +97,16 @@ class TestsDatabase(unittest.TestCase):
                                     data={"email": "testperson", "password": "password"},
                                     follow_redirects=True)
         self.assertIn(b"Success!", result.data)
-        #wouldn't the test be that the user info was now in session? 
+    #     #wouldn't the test be that the user info was now in session? 
     
-    def test_logout(self):
-        """Test handle-logout route."""
+    # def test_logout(self):
+    #     """Test handle-logout route."""
 
-        result = self.client.post("/handle-logout",
-                                    data={"email": "testperson", "password": "password"},
-                                    follow_redirects=True)
-        self.assertIn(b"logged out!", result.data)
-        #the test would be if session was empty- how do i do that?
+    #     result = self.client.post("/handle-logout",
+    #                                 data={"email": "testperson", "password": "password"},
+    #                                 follow_redirects=True)
+    #     self.assertIn(b"logged out!", result.data)
+    #     #the test would be if session was empty- how do i do that?
 
 if __name__ == "__main__":
     unittest.main()
