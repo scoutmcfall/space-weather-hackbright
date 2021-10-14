@@ -82,8 +82,17 @@ def homepage():
 @app.route("/get-historical-data")
 def get_historical_data():
     """return donki report and epic photo for prior date range"""
-    s_date = request.form.get("sdate")
-    e_date = request.form.get("edate")
+    date = request.form.get("search_date")
+    # e_date = request.form.get("edate")
+
+    #deal with epic photo
+
+    #deal with donki forecast
+
+    return render_template("historical-data.html",  img_url=img_url, epicdate = epicdate, 
+                        impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
+                        donki_url = donki_url, epic_url = img_url, blow = blow, 
+                        arrival_statement = arrival_statement, format_cme_time = format_cme_time)
 
 
 
