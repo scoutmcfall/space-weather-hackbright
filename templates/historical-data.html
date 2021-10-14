@@ -223,13 +223,13 @@
       <div class = "histdate">
       <form action = "/get-historical-data">
         Access historical reports and photos:
-        <!-- <label>
-          Enter your start date:
-          <input type="date" name="sdate">
-        </label> -->
         <label>
-          Enter your desired date:
-          <input type="date" name="search_date">
+          Enter your start date:
+          <input id = "today" type="date" name="sdate">
+        </label>
+        <label>
+          Enter your end date:
+          <input id = "today" type="date" name="edate">
         </label>
         <p><button>Submit</button></p>
       </form>
@@ -296,7 +296,9 @@
 
   </div>
 </div> 
-
+<script>
+    document.getElementById("today").value = moment().format('YYYY-MM-DD');
+</script>
 <script type="text/javascript">
     function loading(){
         $("#loading").show();

@@ -82,12 +82,67 @@ def homepage():
 @app.route("/get-historical-data")
 def get_historical_data():
     """return donki report and epic photo for prior date range"""
-    date = request.form.get("search_date")
-    # e_date = request.form.get("edate")
+    s_date = str(request.form.get("sdate"))
+    e_date = str(request.form.get("edate"))
 
     #deal with epic photo
+    # https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
+    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'+ s_date
+
+    #get the filename first
+    res = requests.get(file_url)
+    if res != None:
+        search_result = res.json()
+        filename = search_result[0]['image']
+        filedate = search_result[0]['date'].split()
+        epicdate = filedate[0].replace('-','/')
+    
+        img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
+    else: 
+        flash ("Sorry! No EPIC photo of the Earth for that date.")
+
 
     #deal with donki forecast
+    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + 'endDate='+ e_date + '&api_key='+ API_KEY
+    res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + 'endDate='+ e_date + '&api_key='+ API_KEY)
+    search_results = res.json()
+    if search_results != None:
+        #pass the object in the render template so i'll have access in the html, and can pass it in the form
+        report = search_results[-1]["impactList"] 
+    
+        if report != None:
+            report = search_results[-1]['impactList'][0]
+            impact = report['isGlancingBlow']
+            if impact == True:
+                impact = "will"
+                blow = "Just a glancing blow, whatever that means."
+                arrival = report["arrivalTime"].split("T")[1]
+                arrival_statement = "Time of impact:" + arrival
+                cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+                cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+                format_cme_time = cme_time[:-1]
+                date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+            else:
+                impact = "will not"
+                datetime = report["arrivalTime"].split("T")
+                date = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[0]
+                cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+                format_cme_time = cme_time[:-1]
+                arrival = ""
+                arrival_statement = ""
+                cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
+                blow = ""
+        else:
+            impact = "will not"
+            date = search_results[-1]['modelCompletionTime'].split("T")[0]
+            arrival = ""
+            arrival_statement = ""
+            cme_speed = search_results[-1]['cmeInputs'][0]['speed']
+            cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
+            format_cme_time = cme_time[:-1]
+            blow = ""
+    else:
+        flash ("Sorry! No reports available for your selected date range. Please try again.")
 
     return render_template("historical-data.html",  img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
