@@ -198,6 +198,12 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+.donki-report{
+    font-size: 1vw;
+}
+.histdate{
+    font-size: 2vw;
+}
 </style>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -212,29 +218,32 @@
 
 <div class="split left">
   <div class="centered">
-    <div id="content">
-      <!-- display most recent report from the donki api -->
-      <h1>Watch Out!</h1>
-      <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
-      <p>It {{impact}} hit Earth. {{blow}}</p>
-      <p>{{arrival_statement}}</p>  
-      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
-      <!-- User can access historical reports and images but inputting a date range -->
-      <div class = "histdate">
+   
+    <div class = "histdate">
       <form action = "/get-historical-data">
-        Access historical reports and photos:
+        <h1>Stuck in the past?</h1>
         <label>
-          Enter your start date:
+          Start date:
           <input id = "today" type="date" name="sdate">
         </label>
+        <br>
         <label>
-          Enter your end date:
+          End date:
           <input id = "today" type="date" name="edate">
         </label>
-        <p><button>Submit</button></p>
+        <input type="submit" class = "button" onclick="loading();">
       </form>
-      </div>
     </div>
+    <br>
+    <div class = "donki-report">
+          <!-- <h1>Today in space weather:</h1> -->
+          <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
+          <p>It {{impact}} hit Earth. {{blow}}</p>
+          <p>{{arrival_statement}}</p> 
+          <br> 
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
+          <!-- User can access historical reports and images but inputting a date range -->
+        </div>
 </div>
 
 <div class="split right">

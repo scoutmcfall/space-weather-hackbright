@@ -82,9 +82,11 @@ def homepage():
 @app.route("/get-historical-data")
 def get_historical_data():
     """return donki report and epic photo for prior date range"""
-    s_date = str(request.form.get("sdate"))
-    e_date = str(request.form.get("edate"))
-
+    s_date = str(request.args.get("sdate"))
+    e_date = str(request.args.get("edate"))
+    print("********************************")
+    print(s_date)
+    print(e_date)
     #deal with epic photo
     # https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'+ s_date
@@ -108,7 +110,7 @@ def get_historical_data():
     search_results = res.json()
     if search_results != None:
         #pass the object in the render template so i'll have access in the html, and can pass it in the form
-        report = search_results[-1]["impactList"] 
+        report = search_results[-2]["impactList"] 
     
         if report != None:
             report = search_results[-1]['impactList'][0]
@@ -143,7 +145,7 @@ def get_historical_data():
             blow = ""
     else:
         flash ("Sorry! No reports available for your selected date range. Please try again.")
-
+    print(date)
     return render_template("historical-data.html",  img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
