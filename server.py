@@ -34,10 +34,8 @@ def homepage():
 #get DONKI forecast
     from datetime import date, timedelta, datetime
     today = date.today()
-    #time_now = datetime.now()
     startDate = str(today - timedelta(days=30))
     endDate = str(today)
-    #res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=2021-9-28&endDate=2021-9-28&api_key=DEMO_KEY')
     donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY
     res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY)
     search_results = res.json()
@@ -80,6 +78,14 @@ def homepage():
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
                         arrival_statement = arrival_statement, format_cme_time = format_cme_time)
+
+@app.route("/get-historical-data")
+def get_historical_data():
+    """return donki report and epic photo for prior date range"""
+    s_date = request.form.get("sdate")
+    e_date = request.form.get("edate")
+
+
 
 @app.route("/users", methods=["POST"])
 def register_user():

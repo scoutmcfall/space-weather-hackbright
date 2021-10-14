@@ -66,15 +66,6 @@
     cursor: pointer; /* Add a pointer on hover */
   }
  
-.epic-date {
-  padding: 20px;
-  display: none;
-}
-.epicP:hover + .epic-date {
-  display: block;
-  color: white;
-  font-size: 2vw;
-}
 
 /* Split the screen in half */
 .split {
@@ -83,7 +74,7 @@
   position: fixed;
   z-index: -1;
   top: 0;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   padding-top: 20px;
 }
 
@@ -173,6 +164,40 @@
   vertical-align: top;
   zoom: 1;
 }
+.histdate{
+  font-size: 1vw;
+
+}
+/* hover over photo for date */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 240px;
+  background-color: black;
+  opacity: 0.5;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 2vw;
+
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
 </style>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -188,20 +213,40 @@
 <div class="split left">
   <div class="centered">
     <div id="content">
+      <!-- display most recent report from the donki api -->
       <h1>Watch Out!</h1>
       <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
       <p>It {{impact}} hit Earth. {{blow}}</p>
       <p>{{arrival_statement}}</p>  
       <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
-  </div>
+      <!-- User can access historical reports and images but inputting a date range -->
+      <div class = "histdate">
+      <form action = "/get-historical-data">
+        Access historical reports and photos:
+        <label>
+          Enter your start date:
+          <input type="date" name="sdate">
+        </label>
+        <label>
+          Enter your end date:
+          <input type="date" name="edate">
+        </label>
+        <p><button>Submit</button></p>
+      </form>
+      </div>
+    </div>
 </div>
 
 <div class="split right">
   <div class="centered">
-    <div class="epicP">
+    <!-- <div class="epicP"> -->
+    <div class="tooltip">  
       <img src= {{img_url}} width="500" height="500">
+      <!-- <p class="epic-date">This picture was taken on: {{epicdate}}</p> -->
+        <span class="tooltiptext">This picture was taken on: {{epicdate}}</span>
+      </div>
     </div>
-    <div class="epic-date">This picture was taken on: {{epicdate}}</div>
+    
 
      
     <!-- jinja: if user email not in session, display these things: -->
