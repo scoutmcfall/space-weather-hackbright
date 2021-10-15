@@ -207,6 +207,9 @@
 </style>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
 {% endblock head %}
 
 {% block body %}
@@ -259,10 +262,10 @@
         <form action = "/get-historical-data">
             <!-- I want this button to pass a start date to the server route that is one day after the date 
             the displayed image is from, and rerender the page -->
-            <input type="submit" class = "button" value = "Go forward" onclick="addDay(epicdate);">
+            <input type="submit" class = "button" value = "Go forward" id = "forward" title = {{epicdate}}>
              <!-- I want this button to pass a start date to the server route that is one day before the date 
             the displayed image is from, and rerender the page -->
-            <input type="submit" class = "button" value = "Go back" onclick="subtractDay(epicdate);">
+            <input type="submit" class = "button" value = "Go back" id = "backward" title = {{epicdate}}>
           </form>
     </div>    
      
@@ -341,20 +344,39 @@
 
   return t;
 }(document, "script", "twitter-wjs"));</script>
-<script>
-    function addDay(date) {
-        let date = new Date();
+ <script>
+    function addDay(evt) {
+        evt.preventDefault()
+        // evt.target represents the button that was clicked and i can access html attributes here
+        var date = evt.target.title
+        console.log(date)
+        // date1 = new Date();
         // add a day
-        var result = date.setDate(date.getDate() + 1);
+        // var result = date.setDate(date.getDate() + 1);
+        var result = new Date(date)
+        // var result = date
+        result.setDate(result.getDate(date)+1)
+        console.log(result)
         return result;
         }
-</script>
-<script>
-    function subtractDay(date) {
-        let date = new Date();
-        // subtract a day
-        var result = date.setDate(date.getDate() - 1);
+
+    function subtractDay(evt) {
+        evt.preventDefault()
+        // evt.target represents the button that was clicked and i can access html attributes here
+        var date = evt.target.title
+        console.log(date)
+        // date1 = new Date();
+        // add a day
+        // var result = date.setDate(date.getDate() + 1);
+        var result = new Date(date)
+        // var result = date
+        result.setDate(result.getDate(date)-1)
+        console.log(result)
         return result;
         }
+    document.getElementById("forward").addEventListener("click", addDay)
+    document.getElementById("backward").addEventListener("click", subtractDay)
+
 </script>
+
 {% endblock body %}

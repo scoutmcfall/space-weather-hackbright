@@ -88,9 +88,9 @@ def get_historical_data():
     
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'+ s_date
     #in order to page back in images, the back or forward buttons on the template
-    #would reset the start date as a day forward or backwards using time delta
+    #would reset the start date as a day forward or backwards 
 
-    
+
     #get the filename first
     res = requests.get(file_url)
     if res != None:
