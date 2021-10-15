@@ -232,6 +232,7 @@
           <input id = "today" type="date" name="edate">
         </label>
         <input type="submit" class = "button" onclick="loading();">
+        <button type="reset" class = "button" value="Reset">Reset</button>
       </form>
     </div>
     <br>
@@ -253,8 +254,17 @@
       <img src= {{img_url}} width="500" height="500">
       <!-- <p class="epic-date">This picture was taken on: {{epicdate}}</p> -->
         <span class="tooltiptext">This picture was taken on: {{epicdate}}</span>
-      </div>    
-
+    </div>
+    <div class = "forward-backward">
+        <form action = "/get-historical-data">
+            <!-- I want this button to pass a start date to the server route that is one day after the date 
+            the displayed image is from, and rerender the page -->
+            <input type="submit" class = "button" value = "Go forward" onclick="addDay(epicdate);">
+             <!-- I want this button to pass a start date to the server route that is one day before the date 
+            the displayed image is from, and rerender the page -->
+            <input type="submit" class = "button" value = "Go back" onclick="subtractDay(epicdate);">
+          </form>
+    </div>    
      
     <!-- jinja: if user email not in session, display these things: -->
     {% if session.get("user_email", None) %}
@@ -331,4 +341,20 @@
 
   return t;
 }(document, "script", "twitter-wjs"));</script>
+<script>
+    function addDay(date) {
+        let date = new Date();
+        // add a day
+        var result = date.setDate(date.getDate() + 1);
+        return result;
+        }
+</script>
+<script>
+    function subtractDay(date) {
+        let date = new Date();
+        // subtract a day
+        var result = date.setDate(date.getDate() - 1);
+        return result;
+        }
+</script>
 {% endblock body %}
