@@ -254,12 +254,12 @@
   <div class="centered">
     <!-- <div class="epicP"> -->
     <div class="tooltip">  
-      <img src= {{img_url}} width="500" height="500">
+      <img src= {{img_url}} width="500" height="500" id= "epic_p">
       <!-- <p class="epic-date">This picture was taken on: {{epicdate}}</p> -->
         <span class="tooltiptext">This picture was taken on: {{epicdate}}</span>
     </div>
     <div class = "forward-backward">
-        <form action = "/get-historical-data">
+        <form action = "/forward-backward-epic">
             <!-- I want this button to pass a start date to the server route that is one day after the date 
             the displayed image is from, and rerender the page -->
             <input type="submit" class = "button" value = "Go forward" id = "forward" title = {{epicdate}}>
@@ -343,35 +343,37 @@
   };
 
   return t;
-}(document, "script", "twitter-wjs"));</script>
+}(document, "script", "twitter-wjs"));
+</script>
+
  <script>
     function addDay(evt) {
         evt.preventDefault()
-        // evt.target represents the button that was clicked and i can access html attributes here
+
         var date = evt.target.title
         console.log(date)
-        // date1 = new Date();
-        // add a day
-        // var result = date.setDate(date.getDate() + 1);
         var result = new Date(date)
-        // var result = date
         result.setDate(result.getDate(date)+1)
-        console.log(result)
+        console.log(result.toString())
+        console.log(typeof(result))
+
+        $.get("/forward-backward-epic", {"result": result}, res => 
+        // select the image on the page and change the source url  
+            {document.getElementById("epic_p").src = res;
+            console.log(res)}
+
+            )
         return result;
         }
 
     function subtractDay(evt) {
         evt.preventDefault()
-        // evt.target represents the button that was clicked and i can access html attributes here
         var date = evt.target.title
         console.log(date)
-        // date1 = new Date();
-        // add a day
-        // var result = date.setDate(date.getDate() + 1);
         var result = new Date(date)
-        // var result = date
         result.setDate(result.getDate(date)-1)
-        console.log(result)
+        console.log(String(result))
+        $.get("/forward-backward-epic", {"result": result})
         return result;
         }
     document.getElementById("forward").addEventListener("click", addDay)

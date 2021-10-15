@@ -79,14 +79,26 @@ def homepage():
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
                         arrival_statement = arrival_statement, format_cme_time = format_cme_time)
 
-@app.route("/get-historical-data")
-def get_historical_data():
-    """return donki report and epic photo for prior date range"""
-    s_date = str(request.args.get("sdate"))
-    e_date = str(request.args.get("edate"))
-    #deal with epic photo
-    
-    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'+ s_date
+@app.route("/forward-backward-epic")
+def forward_backward_epic():
+    js_date = request.args.get("result")
+    print("*************************")
+    print(js_date) #this is a string
+    #convert date 
+    # *************************
+    # Wed Feb 03 2021 00:00:00 GMT-0800 (Pacific Standard Time)
+    # date_obj = datetime.strptime(js_date, "%a %b %d %y")
+    # print(date_obj)
+    date = js_date.split(" ")
+    date = date[0:4]
+    date = (" ").join(date)
+    date_obj = (datetime.strptime(date, "%a %b %d %Y"))
+    #use a python strftime to reformat date obj
+    date_strng = (datetime.strftime(date_obj, "%Y-%m-%d"))
+    print(date_strng)
+    #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
+    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ date_strng
+    print(file_url)
     #in order to page back in images, the back or forward buttons on the template
     #would reset the start date as a day forward or backwards 
 
@@ -98,7 +110,34 @@ def get_historical_data():
         filename = search_result[0]['image']
         filedate = search_result[0]['date'].split()
         epicdate = filedate[0].replace('-','/')
-    
+        # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
+        img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
+        return img_url
+    else: 
+        flash ("Sorry! No EPIC photo of the Earth for that date.")
+    return date_strng
+
+
+@app.route("/get-historical-data")
+def get_historical_data():
+    """return donki report and epic photo for prior date range"""
+    s_date = str(request.args.get("sdate"))
+    e_date = str(request.args.get("edate"))
+    #deal with epic photo
+    #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
+    file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ s_date
+    #in order to page back in images, the back or forward buttons on the template
+    #would reset the start date as a day forward or backwards 
+
+
+    #get the filename first
+    res = requests.get(file_url)
+    if res != None:
+        search_result = res.json()
+        filename = search_result[0]['image']
+        filedate = search_result[0]['date'].split()
+        epicdate = filedate[0].replace('-','/')
+        # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
         img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
     else: 
         flash ("Sorry! No EPIC photo of the Earth for that date.")
