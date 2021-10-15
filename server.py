@@ -36,8 +36,8 @@ def homepage():
     today = date.today()
     startDate = str(today - timedelta(days=30))
     endDate = str(today)
-    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY
-    res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + 'endDate='+ endDate + '&api_key='+ API_KEY)
+    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + '&endDate='+ endDate + '&api_key='+ API_KEY
+    res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + startDate + '&endDate='+ endDate + '&api_key='+ API_KEY)
     search_results = res.json()
     #pass the object in the render template so i'll have access in the html, and can pass it in the form
     report = search_results[-1]["impactList"] 
@@ -84,11 +84,8 @@ def get_historical_data():
     """return donki report and epic photo for prior date range"""
     s_date = str(request.args.get("sdate"))
     e_date = str(request.args.get("edate"))
-    print("********************************")
-    print(s_date)
-    print(e_date)
     #deal with epic photo
-    # https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
+    
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'+ s_date
 
     #get the filename first
@@ -105,12 +102,13 @@ def get_historical_data():
 
 
     #deal with donki forecast
-    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + 'endDate='+ e_date + '&api_key='+ API_KEY
-    res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + 'endDate='+ e_date + '&api_key='+ API_KEY)
+    donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + '&endDate='+ e_date + '&api_key='+ API_KEY
+    
+    res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + '&endDate='+ e_date + '&api_key='+ API_KEY)
     search_results = res.json()
     if search_results != None:
         #pass the object in the render template so i'll have access in the html, and can pass it in the form
-        report = search_results[-2]["impactList"] 
+        report = search_results[-1]["impactList"] 
     
         if report != None:
             report = search_results[-1]['impactList'][0]
@@ -124,6 +122,7 @@ def get_historical_data():
                 cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
                 format_cme_time = cme_time[:-1]
                 date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+                
             else:
                 impact = "will not"
                 datetime = report["arrivalTime"].split("T")
@@ -145,7 +144,7 @@ def get_historical_data():
             blow = ""
     else:
         flash ("Sorry! No reports available for your selected date range. Please try again.")
-    print(date)
+   
     return render_template("historical-data.html",  img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
