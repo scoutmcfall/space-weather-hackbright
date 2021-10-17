@@ -201,6 +201,7 @@
 </style>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script type="text/javascript" src="/todolist.app.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -220,7 +221,10 @@
       <p>{{arrival_statement}}</p>  
       <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
       <a href="/get-historical-data" class="button">See the past before it sees you</a>
-
+      <div id = "todolist">
+      <input class = "button" id = "todolist" value = "Now that you've seen the weather, make a to-do list!"/>
+    </div>
+    <script src="/todolist/App.js"></script>
     </div>
 </div>
 
@@ -283,6 +287,12 @@
 
   </div>
 </div> 
+<script>
+  var toDoList = $("#todolist").on( "click", App(){
+  // do some cool JS DOM stuff here
+});
+</script>
+
 
 <script type="text/javascript">
     function loading(){
