@@ -1,0 +1,12 @@
+.string {
+    text-decoration : line-through;
+}
+
+.todo {
+    cursor: pointer;
+}
+
+body {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}

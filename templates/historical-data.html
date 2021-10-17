@@ -209,7 +209,6 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-
 {% endblock head %}
 
 {% block body %}
@@ -227,12 +226,12 @@
         <h1>Stuck in the past?</h1>
         <label>
           Start date:
-          <input id = "today" type="date" name="sdate">
+          <input id = "today" type="date" name="sdate" value = "">
         </label>
         <br>
         <label>
           End date:
-          <input id = "today" type="date" name="edate">
+          <input id = "today" type="date" name="edate" value = "">
         </label>
         <input type="submit" class = "button" onclick="loading();">
         <button type="reset" class = "button" value="Reset">Reset</button>
@@ -318,9 +317,18 @@
 
   </div>
 </div> 
+
 <script>
     document.getElementById("today").value = moment().format('YYYY-MM-DD');
+    // var today = new Date();
+    // var dd = String(today.getDate()).padStart(2, '0');
+    // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    // var yyyy = today.getFullYear();
+
+    // today = yyyy'-'+mm +'-'+dd  ;
+    // document.write(today);
 </script>
+
 <script type="text/javascript">
     function loading(){
         $("#loading").show();
@@ -373,7 +381,12 @@
         var result = new Date(date)
         result.setDate(result.getDate(date)-1)
         console.log(String(result))
-        $.get("/forward-backward-epic", {"result": result})
+        $.get("/forward-backward-epic", {"result": result}, res => 
+        // select the image on the page and change the source url  
+            {document.getElementById("epic_p").src = res;
+            console.log(res)}
+
+            )
         return result;
         }
     document.getElementById("forward").addEventListener("click", addDay)
