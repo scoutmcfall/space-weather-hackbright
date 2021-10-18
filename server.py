@@ -121,30 +121,42 @@ def forward_backward_epic():
 @app.route("/get-historical-data")
 def get_historical_data():
     """return donki report and epic photo for prior date range"""
-    # s_date = str(request.args.get("sdate"))
-    # e_date = str(request.args.get("edate"))
+    # epicdate = "2021/02/02"
+    # from datetime import date, timedelta, datetime
 
-    s_date = "2021-02-02"
-    e_date = "2021-02-27"
+    # today = date.today()
+
+    from datetime import date, timedelta, datetime
+    today = date.today()
+    # s_date = str(today - timedelta(days=10))
+    # e_date = str(today)
+
+    s_date = str(request.args.get("sdate", today - timedelta(days=10)))
+    e_date = str(request.args.get("edate", today))
+
+    # s_date = "2021-02-02"
+    # e_date = "2021-02-27"
 
     #when i go to this route, these variables are none instead of the default today
     #deal with epic photo
     #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ s_date
     #in order to page back in images, the back or forward buttons on the template
-    #would reset the start date as a day forward or backwards 
+    #would reset the start date as a day forward or backward 
     print("******************************")
     print(file_url)
 
     #get the filename first
     res = requests.get(file_url)
+    print(res)
 
     # res = requests.get(file_url)
     # res.raise_for_status()  # raises exception when not a 2xx response
     # if res.status_code != 204:
     #     res = res.json()
-    if res != None:
-        search_result = res.json()
+    search_result = res.json()
+    print(search_result)
+    if search_result:
         filename = search_result[0]['image']
         filedate = search_result[0]['date'].split()
         epicdate = filedate[0].replace('-','/')
@@ -162,11 +174,12 @@ def get_historical_data():
     print("******************************")
     print(res)
     search_results = res.json()
-    if search_results != None:
+    print(search_results)
+    if search_results:
         #pass the object in the render template so i'll have access in the html, and can pass it in the form
         report = search_results[-1]["impactList"] 
     
-        if report != None:
+        if report:
             report = search_results[-1]['impactList'][0]
             impact = report['isGlancingBlow']
             if impact == True:
