@@ -2,23 +2,115 @@
 {% block title %}Space Weather Home{% endblock %}
 
 
-{% block head %} 
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block head %} {% endblock %}
 
-{% endblock %}
+{% block body %}
 
- {% block body %}
+<!-- navbar: -->
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">text on left</a>
+  <form class="form-inline">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">@</span>
+      </div>
+      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </form>
+</div>
+</nav>
+
+
+
 
 <div id="loading">          
   <a href="https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp"></a>
   <h1> Thank you for waiting while we go to space and back.</h1>
 </div>
+<!-- bootstrap: -->
+<div class="container">
+  <div class="row">
+    <!-- left column -->
+    <div class="col">
+      <!-- <div class ="centered"> -->
+      <!-- <div id="content"> -->
+        <!-- display most recent report from the donki api -->
+        <h1>Watch Out!</h1>
+        <h2><p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
+        <h3>It {{impact}} hit Earth. {{blow}}</h3>
+        <h3>{{arrival_statement}}</h3> 
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
+        <a href="/get-historical-data" class="btn btn-outline-light" >See the past before it sees you</a>
+      <!-- </div> -->
+    </div>
+  <!-- </div> -->
 
-<div class="split left">
+  <!-- right column -->
+    <div class="col">
+      <!-- <div class = "centered"> -->
+      <div class="tooltip">  
+        <img src= {{img_url}} width="500" height="500">
+          <span class="tooltiptext">This picture was taken on: {{epicdate}}</span>
+        </div>    
+       
+      <!-- jinja: if user email not in session, display these things: -->
+      {% if session.get("user_email", None) %}
+      <!-- <p>Rate this Earth from 1-5 stars:</p> -->
+      <form action = '/rate' method = "POST">
+      <div class="rate">
+        <input type="radio" id="star5" name="num_stars" value="5" />
+        <label for="star5" title="text">5 stars</label>
+        <input type="radio" id="star4" name="num_stars" value="4" />
+        <label for="star4" title="text">4 stars</label>
+        <input type="radio" id="star3" name="num_stars" value="3" />
+        <label for="star3" title="text">3 stars</label>
+        <input type="radio" id="star2" name="num_stars" value="2" />
+        <label for="star2" title="text">2 stars</label>
+        <input type="radio" id="star1" name="num_stars" value="1" />
+        <label for="star1" title="text">1 star</label>
+        <br>
+        <br>
+     </div>
+     <div class = "comment">
+      <input type="text" name="comment" placeholder="leave a comment" style="height:26px;font-size:14pt;">
+      <input type="hidden" name="epic_url" value="{{epic_url}}">
+      <input type="hidden" name="donki_url" value="{{donki_url}}">
+      <input type="submit" class = "btn btn-outline-light" onclick="loading();">
+      </form>
+      
+    
+        <a href="/profile" class="btn btn-outline-light">Go to profile</a>
+        <a href="/logout" class = "btn btn-outline-light"> Log Out </a> 
+      
+    </div>
+
+      {% else %}
+      <!-- create an account or log in -->
+      <form action="/users" method="POST">
+          <input type="text" name="email" placeholder="hey what's your email" style="height:26px;font-size:14pt;">
+          <input type="text" name="password" placeholder="hey what's your password" style="height:26px;font-size:14pt;">
+          <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Create an Account" onclick="loading();">
+      </form>
+      
+      <form action="/handle-login" method="POST">
+          <input type="text" name="login_email" placeholder="gimme that email" style="height:26px;font-size:14pt;">
+          <input type="text" name="login_password" placeholder="gimme that password" style="height:26px;font-size:14pt;">
+          <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Log In" onclick="loading();">
+      </form>
+    
+      {% endif %} 
+      </div>
+    </div>
+  </div>
+  </div>
+<!-- </div> -->
+
+
+<!-- <div class="split left">
   <div class="centered">
-    <div id="content">
+    <div id="content"> -->
       <!-- display most recent report from the donki api -->
-      <h1>Watch Out!</h1>
+      <!-- <h1>Watch Out!</h1>
       <p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p>
       <p>It {{impact}} hit Earth. {{blow}}</p>
       <p>{{arrival_statement}}</p>  
@@ -27,22 +119,19 @@
       
     
     </div>
-</div>
+</div> -->
 
-<div class="split right">
+<!-- <div class="split right">
   <div class="centered">
-    <!-- <div class="epicP"> -->
     <div class="tooltip">  
       <img src= {{img_url}} width="500" height="500">
-      <!-- <p class="epic-date">This picture was taken on: {{epicdate}}</p> -->
         <span class="tooltiptext">This picture was taken on: {{epicdate}}</span>
-      </div>    
-
+      </div>     -->
      
     <!-- jinja: if user email not in session, display these things: -->
-    {% if session.get("user_email", None) %}
+    <!-- {% if session.get("user_email", None) %} -->
     <!-- <p>Rate this Earth from 1-5 stars:</p> -->
-    <form action = '/rate' method = "POST">
+    <!-- <form action = '/rate' method = "POST">
     <div class="rate">
       <input type="radio" id="star5" name="num_stars" value="5" />
       <label for="star5" title="text">5 stars</label>
@@ -87,14 +176,10 @@
     </div>
 
   </div>
-</div> 
+</div>  -->
   
 
-<!-- Load React. -->
-<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
 <script type="text/javascript">
     function loading(){
         $("#loading").show();

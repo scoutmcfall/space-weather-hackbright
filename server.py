@@ -30,6 +30,8 @@ def homepage():
     epicdate = filedate[0].replace('-','/')
    
     img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
+    print("******************")
+    print(epicdate, img_url)
 
 #get DONKI forecast
     from datetime import date, timedelta, datetime
