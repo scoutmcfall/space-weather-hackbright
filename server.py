@@ -79,23 +79,19 @@ def homepage():
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
                         arrival_statement = arrival_statement, format_cme_time = format_cme_time)
 
+
 @app.route("/forward-backward-epic")
 def forward_backward_epic():
     js_date = request.args.get("result")
-    print("*************************")
-    print(js_date) #this is a string
+    
     #convert date 
-    # *************************
-    # Wed Feb 03 2021 00:00:00 GMT-0800 (Pacific Standard Time)
-    # date_obj = datetime.strptime(js_date, "%a %b %d %y")
-    # print(date_obj)
     date = js_date.split(" ")
     date = date[0:4]
     date = (" ").join(date)
     date_obj = (datetime.strptime(date, "%a %b %d %Y"))
     #use a python strftime to reformat date obj
     date_strng = (datetime.strftime(date_obj, "%Y-%m-%d"))
-    print(date_strng)
+  
     #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ date_strng
     print(file_url)
@@ -121,41 +117,25 @@ def forward_backward_epic():
 @app.route("/get-historical-data")
 def get_historical_data():
     """return donki report and epic photo for prior date range"""
-    # epicdate = "2021/02/02"
-    # from datetime import date, timedelta, datetime
-
-    # today = date.today()
 
     from datetime import date, timedelta, datetime
     today = date.today()
-    # s_date = str(today - timedelta(days=10))
-    # e_date = str(today)
+   
 
     s_date = str(request.args.get("sdate", today - timedelta(days=10)))
     e_date = str(request.args.get("edate", today))
 
-    # s_date = "2021-02-02"
-    # e_date = "2021-02-27"
-
-    #when i go to this route, these variables are none instead of the default today
     #deal with epic photo
     #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ s_date
     #in order to page back in images, the back or forward buttons on the template
     #would reset the start date as a day forward or backward 
-    print("******************************")
-    print(file_url)
 
     #get the filename first
     res = requests.get(file_url)
-    print(res)
 
-    # res = requests.get(file_url)
-    # res.raise_for_status()  # raises exception when not a 2xx response
-    # if res.status_code != 204:
-    #     res = res.json()
     search_result = res.json()
-    print(search_result)
+  
     if search_result:
         filename = search_result[0]['image']
         filedate = search_result[0]['date'].split()
@@ -168,13 +148,11 @@ def get_historical_data():
 
     #deal with donki forecast
     donki_url = 'https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + '&endDate='+ e_date + '&api_key='+ API_KEY
-    print("******************************")
-    print(donki_url)
+    
     res = requests.get('https://api.nasa.gov/DONKI/WSAEnlilSimulations?startDate=' + s_date + '&endDate='+ e_date + '&api_key='+ API_KEY)
-    print("******************************")
-    print(res)
+   
     search_results = res.json()
-    print(search_results)
+   
     if search_results:
         #pass the object in the render template so i'll have access in the html, and can pass it in the form
         report = search_results[-1]["impactList"] 

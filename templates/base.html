@@ -10,20 +10,11 @@
     <title>
       {% block title %}{% endblock %}
     </title>
+    <link rel="stylesheet" href="/static/style.css">
 
-    {% block head %}
-    <style>
-    .msg{
-      color: white;}
-      /* dark mode babyyyyyyyyy */
-    body {
-      background-color: black;
-      font-family: sans-serif;
-      color: white;
-      font-size: 3vw;
-  }
-    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% block head %}
+    
     {% endblock %}
   </head>
   <body>
