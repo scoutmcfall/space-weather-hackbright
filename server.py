@@ -19,9 +19,9 @@ API_KEY = os.environ["API_KEY"]
 
 @app.route('/')
 def homepage():
-    # if session[user_email]:
-    #     return redirect ("/main")
-    # else:
+    if "user_email" in session:
+        return redirect ("/main")
+    else:
         return render_template("login-signup.html")
 
 @app.route("/main")
@@ -37,8 +37,8 @@ def mainpage():
     epicdate = filedate[0].replace('-','/')
    
     img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
-    print("******************")
-    print(epicdate, img_url)
+    # print("******************")
+    # print(epicdate, img_url)
 
 #get DONKI forecast
     from datetime import date, timedelta, datetime
@@ -92,6 +92,7 @@ def mainpage():
 @app.route("/forward-backward-epic")
 def forward_backward_epic():
     js_date = request.args.get("result")
+    print("this is the js date" + js_date)
     
     #convert date 
     date = js_date.split(" ")
@@ -110,16 +111,24 @@ def forward_backward_epic():
 
     #get the filename first
     res = requests.get(file_url)
-    if res != None:
-        search_result = res.json()
+    print("************************")
+    print(res)
+    # if res:
+    search_result = res.json()
+    if search_result:
         filename = search_result[0]['image']
         filedate = search_result[0]['date'].split()
-        epicdate = filedate[0].replace('-','/')
+        filedate = filedate[0]
+        print(filedate)
+        epicdate = filedate.replace('-','/')
         # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
         img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
-        return img_url
+        print(img_url)
+        return {"img_url": img_url, "date": filedate}
     else: 
+        # put in some sad funny picture
         flash ("Sorry! No EPIC photo of the Earth for that date.")
+    print(date_strng)
     return date_strng
 
 

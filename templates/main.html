@@ -26,8 +26,7 @@
         <a class="nav-link active" aria-current="page" href="/main">Home</a>
         <a class="nav-link" href="/profile" class="btn btn-outline-light">Go to profile</a>
         <a class="nav-link" href="/logout" class = "btn btn-outline-light"> Log Out </a>
-        <a class="nav-link" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
-
+        <!-- <a class="nav-link" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a> -->
       </div>
     </div>
   </div>
@@ -37,50 +36,31 @@
 <div class="container">
   <div class="row">
     <!-- left column -->
-    <div class="col">
-      <img src= {{img_url}} class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" title= "This photo taken on {{epicdate}}">
-      
-      <!-- <div class = "forward-backward">
+    <div class="col-7">
+      <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" title= "{{epicdate}}">
+
+      <div class = "forward-backward">
         <form action = "/forward-backward-epic">
           <div class="btn-group" role="group">
             <input type="submit" class = "btn btn-outline-light" value = "Next" id = "forward" title = {{epicdate}}>
             <input type="submit" class = "btn btn-outline-light" value = "Previous" id = "backward" title = {{epicdate}}>
           </div>
           </form>
-      </div>  -->
+      </div> 
       
        
-      <!-- <p>Rate this Earth from 1-5 stars:</p> -->
-      <form action = '/rate' method = "POST">
-      <div class="rate">
-        <input type="radio" id="star5" name="num_stars" value="5" />
-        <label for="star5" title="text">5 stars</label>
-        <input type="radio" id="star4" name="num_stars" value="4" />
-        <label for="star4" title="text">4 stars</label>
-        <input type="radio" id="star3" name="num_stars" value="3" />
-        <label for="star3" title="text">3 stars</label>
-        <input type="radio" id="star2" name="num_stars" value="2" />
-        <label for="star2" title="text">2 stars</label>
-        <input type="radio" id="star1" name="num_stars" value="1" />
-        <label for="star1" title="text">1 star</label>
-        <br>
-        <br>
-     </div>
-     <div class = "comment">
-      <input type="text" name="comment" placeholder="leave a comment" style="height:26px;font-size:14pt;">
-      <input type="hidden" name="epic_url" value="{{epic_url}}">
-      <input type="hidden" name="donki_url" value="{{donki_url}}">
-      <input type="submit" class = "btn btn-outline-light" onclick="loading();">
-      </form>
-    </div>
+      
   </div>
 
 <!-- right columm -->
-    <div class="col justify-content-center">
+    <div class="col-5">
         <h1>Watch Out!</h1>
         <h2><p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
         <h3>It {{impact}} hit Earth. {{blow}}</h3>
         <h3>{{arrival_statement}}</h3> 
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-text="Today in space weather: " data-hashtags="NASA" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
         <!-- display most recent report from the donki api -->
         <form action = "/get-historical-data">
           <h1>Stuck in the past?</h1>
@@ -97,42 +77,70 @@
             <button type="reset" class = "btn btn-outline-light" value="Reset">Reset</button>
           </div>
         </form>
-         
+         <!-- <p>Rate this Earth from 1-5 stars:</p> -->
+      <form action = '/rate' method = "POST">
+        <div class="rate">
+          <input type="radio" id="star5" name="num_stars" value="5" />
+          <label for="star5" title="text">5 stars</label>
+          <input type="radio" id="star4" name="num_stars" value="4" />
+          <label for="star4" title="text">4 stars</label>
+          <input type="radio" id="star3" name="num_stars" value="3" />
+          <label for="star3" title="text">3 stars</label>
+          <input type="radio" id="star2" name="num_stars" value="2" />
+          <label for="star2" title="text">2 stars</label>
+          <input type="radio" id="star1" name="num_stars" value="1" />
+          <label for="star1" title="text">1 star</label>
+          <br>
+          <br>
+        </div>
+       <div class = "comment">
+        <input type="text" name="comment" placeholder="leave a comment" style="height:26px;font-size:14pt;">
+        <input type="hidden" name="epic_url" value="{{epic_url}}">
+        <input type="hidden" name="donki_url" value="{{donki_url}}">
+        <input type="submit" class = "btn btn-outline-light" onclick="loading();">
+        </form>
+      </div>
     </div>
 </div>
 
-  
+
 
 <script>
   function addDay(evt) {
       evt.preventDefault()
 
-      var date = evt.target.title
-      console.log(date)
-      var result = new Date(date)
+      const date = evt.target.title
+      console.log("evt.target = ", evt.target)
+      console.log("starting title", evt.target.title)
+      console.log("starting date", date)
+      const result = new Date(date)
       result.setDate(result.getDate(date)+1)
-      console.log(result.toString())
-      console.log(typeof(result))
+      console.log("should be one day more", result.toString())
+      console.log("type of result", typeof(result))
 
-      $.get("/forward-backward-epic", {"result": result}, res => 
-      // select the image on the page and change the source url  
-          {document.getElementById("epic_p").src = res;
-          console.log(res)}
-
-          )
-      return result;
+      $.get("/forward-backward-epic", {"result": result}, res => {
+          // select the image on the page and change the source url 
+          document.getElementById("epic_p").src = res.img_url;
+          document.getElementById("forward").title = res.date;
+          // document.getElementById("forward").setAttribute("title", res.date);
+          // evt.target.setAttribute("title", res.date);
+          console.log("this is the date part of the result", res.date);
+          console.log("final title", document.getElementById("epic_p").title)
+        })
+      
+        return result;
       }
 
   function subtractDay(evt) {
       evt.preventDefault()
-      var date = evt.target.title
-      console.log(date)
-      var result = new Date(date)
+    
       result.setDate(result.getDate(date)-1)
       console.log(String(result))
       $.get("/forward-backward-epic", {"result": result}, res => 
       // select the image on the page and change the source url  
-          {document.getElementById("epic_p").src = res;
+          {document.getElementById("epic_p").src = res.img_url;
+          
+          document.getElementById("epic_p").title = res.date;
           console.log(res)}
 
           )
@@ -140,10 +148,11 @@
       }
   document.getElementById("forward").addEventListener("click", addDay)
   document.getElementById("backward").addEventListener("click", subtractDay)
-
 </script>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<!-- <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>window.twttr = (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],
     t = window.twttr || {};
@@ -159,5 +168,5 @@
   };
 
   return t;
-}(document, "script", "twitter-wjs"));</script>
+  }(document, "script", "twitter-wjs"));</script> -->
 {% endblock body %}

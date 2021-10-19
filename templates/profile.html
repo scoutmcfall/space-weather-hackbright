@@ -14,24 +14,27 @@
 
 <div id = "content">
     <h1>Hello {{session.get("user_email")}}!</h1>
-    Thank you for rating {{num_rates}} photo(s) of Earth.
-    On average, you rate photos of the earth {{avg_user_rating}} out of 5 stars.
+    <h2>
+        Thank you for rating {{num_rates}} photo(s) of Earth.
+        <br>
+        On average, you rate photos of the earth {{avg_user_rating}} out of 5 stars.
+    </h2>
     <br>
     Would you like to update your information?
-    <input type="button" name="update-info" value="Update email/password" onclick="showDiv()" />
+    <input type="button" class = "btn btn-outline-light" name="update-info" value="Update email/password" onclick="showDiv()" />
 </div>
 
 <div id = "update-info" style = "display:none;">
 <form action="/email-update" method="POST">
     <!-- <input type="text" name="change_email" placeholder="Give me old email" style="height:26px;font-size:14pt;"> -->
-    <input type="text" name="new_email" placeholder="Give me new email." style="height:26px;font-size:14pt;">
-    <input type="submit" class = "button" name="anything_submit" value="Update email" onclick="loading();">
+    <input type="text" name="new_email" placeholder="Give me new email.">
+    <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Update email" onclick="loading();">
 </form>
     <br>
 <form action="/password-update" method="POST">
-    <input type="text" name="change_password" placeholder="Give me old password" style="height:26px;font-size:14pt;">
-    <input type="text" name="new_password" placeholder="Give me new password" style="height:26px;font-size:14pt;">
-    <input type="submit" class = "button" name="anything_submit" value="Change password" onclick="loading();">
+    <input type="text" name="change_password" placeholder="Give me old password">
+    <input type="text" name="new_password" placeholder="Give me new password" >
+    <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Change password" onclick="loading();">
 </form>
 </div>
 

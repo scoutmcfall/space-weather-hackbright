@@ -179,36 +179,7 @@ body {
   font-size: 1vw;
 
 }
-/* hover over photo for date */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 275px;
-  background-color: black;
-  opacity: 0.5;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  font-size: 2.5vw;
-
-  
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  bottom: 36%;
-  left: 34%;
-  margin-left: -60px;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-} 
 
 /* end homepage.html */
 
