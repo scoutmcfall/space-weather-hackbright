@@ -8,15 +8,40 @@
 
 <!-- navbar: -->
 <nav class="navbar fixed-bottom navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">text on left</a>
-  <form class="form-inline">
+  <!-- <a class="navbar-brand" href="#">text on left</a> -->
+  <div class="btn-group" role="group">
+    <a href="/get-historical-data" class="btn btn-outline-light" >See the past before it sees you</a>
+    <a href="/profile" class="btn btn-outline-light">Go to profile</a>
+    <a href="/logout" class = "btn btn-outline-light"> Log Out </a>
+  </div>
+
+  <form class="form-inline" action="/users" method="POST">
     <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
-      </div>
-      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        <input type="text" name="email" placeholder="Email">
+        <input type="text" name="password" placeholder="Password">
+        <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Create an Account" onclick="loading();">
     </div>
-  </form>
+    </form>
+   
+  <form class="form-inline" action="/handle-login" method="POST">
+    <div class="input-group">
+        <input type="text" name="login_email" placeholder="Email">
+        <input type="text" name="login_password" placeholder="Password">
+        <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Log In" onclick="loading();">
+      </div>
+    </form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </li>
 </div>
 </nav>
 
@@ -27,6 +52,8 @@
   <a href="https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp"></a>
   <h1> Thank you for waiting while we go to space and back.</h1>
 </div>
+
+
 <!-- bootstrap: -->
 <div class="container">
   <div class="row">
@@ -40,7 +67,6 @@
         <h3>It {{impact}} hit Earth. {{blow}}</h3>
         <h3>{{arrival_statement}}</h3> 
         <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-hashtags="NASA" data-show-count="false"><i></i>Tweet</a>
-        <a href="/get-historical-data" class="btn btn-outline-light" >See the past before it sees you</a>
       <!-- </div> -->
     </div>
   <!-- </div> -->
@@ -79,8 +105,8 @@
       </form>
       
     
-        <a href="/profile" class="btn btn-outline-light">Go to profile</a>
-        <a href="/logout" class = "btn btn-outline-light"> Log Out </a> 
+        <!-- <a href="/profile" class="btn btn-outline-light">Go to profile</a>
+        <a href="/logout" class = "btn btn-outline-light"> Log Out </a>  -->
       
     </div>
 

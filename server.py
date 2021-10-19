@@ -19,7 +19,11 @@ API_KEY = os.environ["API_KEY"]
 
 @app.route('/')
 def homepage():
-    """View homepage containing EPIC photo and DONKI forecast"""
+    return render_template("login-signup.html")
+
+@app.route("/main")
+def mainpage():    
+    """View former homepage containing EPIC photo and DONKI forecast"""
 #get most recent epic photo
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/'
     #get the filename first
