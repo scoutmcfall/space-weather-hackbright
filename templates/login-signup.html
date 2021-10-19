@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up or Log in to Space Weather{% endblock %}
+
+
+{% block head %} {% endblock %}
+
+{% block body %}
+<body class="text-center">
+  
+<div class="row">
+    <div class="col-xs-1 center-block text-center">
+        <img src = "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png" width="600" height="600">
+
+        <h1 class= "h3 mb-3 font-weight-normal">speak friend, and enter</h1>
+        <form action="/users" method="POST" class = "form-signin">
+            <input type="text" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+            <input type="text" name="password" class="form-control" placeholder="Password" required="">
+            <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Create an Account" onclick="loading();">
+        </form>
+        
+        <form action="/handle-login" method="POST" class = "form-signin">
+            <input type="text" name="login_email" class="form-control" placeholder="Email address" required="" autofocus="">
+            <input type="text" name="login_password" class="form-control" placeholder="Password" required="">
+            <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Log In" onclick="loading();">
+        </form>
+    </div>
+</div>
+</body>
+
+
+
+
+
+
+
+    <!-- <img src = "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png" width="500" height="500">
+    <h1 class= "h3 mb-3 font-weight-normal">speak friend, and enter</h1>
+    <form action="/users" method="POST" class = "form-signin">
+        <input type="text" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="text" name="password" class="form-control" placeholder="Password" required="">
+        <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Create an Account" onclick="loading();">
+    </form>
+    
+    <form action="/handle-login" method="POST" class = "form-signin">
+        <input type="text" name="login_email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="text" name="login_password" class="form-control" placeholder="Password" required="">
+        <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Log In" onclick="loading();">
+    </form> -->
+
+
+{% endblock %}

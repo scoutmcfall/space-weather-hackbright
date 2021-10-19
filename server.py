@@ -80,7 +80,7 @@ def mainpage():
         format_cme_time = cme_time[:-1]
         blow = ""
  
-    return render_template("homepage.html", img_url=img_url, epicdate = epicdate, 
+    return render_template("main.html", img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
                         arrival_statement = arrival_statement, format_cme_time = format_cme_time)
@@ -222,7 +222,7 @@ def register_user():
        
         flash("Account created! You are logged in. Time to rate this photo of the earth.")
 
-    return redirect("/")
+    return redirect("/main")
 
 @app.route("/handle-login", methods = ["POST"])
 def handle_login():
@@ -241,7 +241,7 @@ def handle_login():
             session["user_email"] = user.email #all routes have access to session
             session["user_id"] = user.user_id
             flash ("Success! Verified! Time to rate this photo of the earth.")
-            return redirect ("/")
+            return redirect ("/main")
         else:
             flash ("FAILURE")
             return redirect("/handle-login")
@@ -288,7 +288,7 @@ def handle_rating():
         average_photo_rating = crud.get_avg_photo_rating(epic_object.epic_id)
         flash (f"Success! You have rated this earth photo. Here's what it's been rated on average {average_photo_rating}", "msg")  
 
-    return redirect("/")
+    return redirect("/main")
 
 @app.route("/profile")
 def display_profile():

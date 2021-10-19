@@ -3,37 +3,7 @@
 
 
 {% block head %} 
-<style>
-    div#loading {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url(https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp);
-    /* background-color: rgba(0,0,0,0.5); Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
-  }
-  .button {
-  background-color: grey;
-  border: none;
-  color: white;
-  padding: 7px 16px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
 
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock head %}
 
 {% block body %}
@@ -65,21 +35,6 @@
 </form>
 </div>
 
-<script type="text/javascript">
-    function loading(){
-        $("#loading").show();
-        $("#content").hide();       
-    }
-    function showDiv() {
-        // document.getElementById("update-info").style.display = "block";
-        var x = document.getElementById("update-info");
-
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-}
-</script>
+<a href = "/main" class = "btn btn-outline-light">ReVERT</a>
 
 {% endblock %}
