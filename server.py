@@ -19,7 +19,10 @@ API_KEY = os.environ["API_KEY"]
 
 @app.route('/')
 def homepage():
-    return render_template("login-signup.html")
+    # if session[user_email]:
+    #     return redirect ("/main")
+    # else:
+        return render_template("login-signup.html")
 
 @app.route("/main")
 def mainpage():    
