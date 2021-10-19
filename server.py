@@ -198,7 +198,7 @@ def get_historical_data():
     else:
         flash ("Sorry! No reports available for your selected date range. Please try again.")
    
-    return render_template("historical-data.html",  img_url=img_url, epicdate = epicdate, 
+    return render_template("main.html",  img_url=img_url, epicdate = epicdate, 
                         impact = impact, date = date, arrival = arrival, cme_speed = cme_speed, 
                         donki_url = donki_url, epic_url = img_url, blow = blow, 
                         arrival_statement = arrival_statement, format_cme_time = format_cme_time)
