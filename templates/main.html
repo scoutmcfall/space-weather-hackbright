@@ -43,7 +43,7 @@
         <form action = "/forward-backward-epic">
           <div class="btn-group" role="group">
             <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" title = {{epicdate}}>
-            <button  class = "btn btn-outline-light" value = "Previous" id = "backward" title = {{epicdate}}>
+            <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" title = {{epicdate}}>
           </div>
           </form>
       </div> 
@@ -108,24 +108,38 @@
 <script>
   function addDay(evt) {
       evt.preventDefault()
+      const date = evt.target.value
+      const result = new Date(date)
+      result.setDate(result.getDate(date)+1)
+     
+      document.getElementById("forward").value = result.toString();
+      
+      $.get("/forward-backward-epic", {"result": result}, res => {
+          // select the image on the page and change the source url 
+          document.getElementById("epic_p").src = res.img_url;
+        
+        })
+      
+        return result;
+      }
+
+  function subtractDay(evt) {
+      evt.preventDefault()
 
       const date = evt.target.value
       console.log("******evt.target.value*****")
       console.log(date)
       console.log("******evt.target.value*****")
 
-
-
-
-      // console.log(evt.target.title)
+      console.log(evt.target.title)
       console.log("evt.target = ", evt.target)
-      // console.log("starting title", evt.target.title)
-      // console.log("starting date", date)
+      console.log("starting title", evt.target.title)
+      console.log("starting date", date)
       const result = new Date(date)
       result.setDate(result.getDate(date)+1)
       console.log("should be one day more", result.toString())
-      // console.log("type of result", typeof(result))
-      document.getElementById("forward").value = result.toString();
+      console.log("type of result", typeof(result))
+      document.getElementById("backward").value = result.toString();
       console.log("******updated value of el with forward id*****")
       console.log("evt.target = ", evt.target)
       console.log("******new evt.target.value*****")
@@ -141,24 +155,8 @@
           console.log("this is the date part of the result", res.date);
           console.log("final value", document.getElementById("forward").value)
         })
-      
+
         return result;
-      }
-
-  function subtractDay(evt) {
-      evt.preventDefault()
-    
-      result.setDate(result.getDate(date)-1)
-      console.log(String(result))
-      $.get("/forward-backward-epic", {"result": result}, res => 
-      // select the image on the page and change the source url  
-          {document.getElementById("epic_p").src = res.img_url;
-          
-          document.getElementById("epic_p").title = res.date;
-          console.log(res)}
-
-          )
-      return result;
       }
   document.getElementById("forward").addEventListener("click", addDay)
   document.getElementById("backward").addEventListener("click", subtractDay)
