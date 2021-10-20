@@ -91,8 +91,9 @@ def mainpage():
 
 @app.route("/forward-backward-epic")
 def forward_backward_epic():
+    print(request.args)
     js_date = request.args.get("result")
-    print("this is the js date" + js_date)
+    print(js_date)
     
     #convert date 
     date = js_date.split(" ")
@@ -345,7 +346,12 @@ def update_password():
                 flash ("FAILURE. Please reenter your current password for confirmation.")
                 return redirect("/profile")
         
+@app.route("/todo-list")
+def todo_list():
+    """react app showing interactive todo list"""
+    return render_template("todolist.html")
 
+    
 if __name__ == "__main__":
     # DebugToolbarExtension(app)
     connect_to_db(app)
