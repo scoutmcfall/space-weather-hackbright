@@ -125,10 +125,12 @@ def forward_backward_epic():
         # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
         img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
         print(img_url)
-        return {"img_url": img_url, "date": filedate}
+        return {"img_url": img_url}
     else: 
         # put in some sad funny picture
-        flash ("Sorry! No EPIC photo of the Earth for that date.")
+        flash ("No photo for this date- was the Earth even there? Who knows.")
+        img_url = "https://www.adgully.com/img/800/201906/earth-is-a-donut.jpg"
+        return {"img_url": img_url}
     print(date_strng)
     return date_strng
 

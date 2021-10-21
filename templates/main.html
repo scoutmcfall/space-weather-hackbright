@@ -37,17 +37,19 @@
   <div class="row">
     <!-- left column -->
     <div class="col-7">
-      <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" title= "{{epicdate}}">
-
+      
       <div class = "forward-backward">
         <form action = "/forward-backward-epic">
           <div class="btn-group" role="group">
-            <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" title = {{epicdate}}>
-            <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" title = {{epicdate}}>
+            <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
+              title = "{{ epicdate }}" >Previous</button>
+            <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
+              title = "{{ epicdate }}" >Next</button>
           </div>
           </form>
       </div> 
-      
+      <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+        value = "{{ epicdate }}" title = "One day, I will figure out how to display the correct date here.">
        
       
   </div>
@@ -113,7 +115,8 @@
       result.setDate(result.getDate(date)+1)
      
       document.getElementById("forward").value = result.toString();
-      
+      document.getElementById("epic_p").value = result.toString();
+
       $.get("/forward-backward-epic", {"result": result}, res => {
           // select the image on the page and change the source url 
           document.getElementById("epic_p").src = res.img_url;
@@ -127,33 +130,16 @@
       evt.preventDefault()
 
       const date = evt.target.value
-      console.log("******evt.target.value*****")
-      console.log(date)
-      console.log("******evt.target.value*****")
-
-      console.log(evt.target.title)
-      console.log("evt.target = ", evt.target)
-      console.log("starting title", evt.target.title)
-      console.log("starting date", date)
+      
       const result = new Date(date)
       result.setDate(result.getDate(date)+1)
-      console.log("should be one day more", result.toString())
-      console.log("type of result", typeof(result))
+     
       document.getElementById("backward").value = result.toString();
-      console.log("******updated value of el with forward id*****")
-      console.log("evt.target = ", evt.target)
-      console.log("******new evt.target.value*****")
-      console.log(date)
-      console.log("******new evt.target.value*****")
-      console.log(result)
+      document.getElementById("epic_p").value = result.toString();
+
       $.get("/forward-backward-epic", {"result": result}, res => {
           // select the image on the page and change the source url 
           document.getElementById("epic_p").src = res.img_url;
-          // document.getElementById("forward").value = result.date;
-          // document.getElementById("forward").setAttribute("title", res.date);
-          // evt.target.setAttribute("title", res.date);
-          console.log("this is the date part of the result", res.date);
-          console.log("final value", document.getElementById("forward").value)
         })
 
         return result;

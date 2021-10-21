@@ -5,11 +5,13 @@
 {% block head %}
     <!-- this script tells the template where to find the js containing 
         the app i'm mounting to a div on this page -->
-    <script src = "/static/js/todolist.jsx" type="text/jsx"></script>
+    <script>alert("weeeeeeeè")</script>
+        <script src = "/static/js/todolist.jsx" type="text/jsx"></script>
 {% endblock %}
 
 {% block body %} 
         <!-- mounting my react components to this element -->
-        <div id="todolist"></div>
+        <p>hello we are in the html template</p>
+        <div id="todolist" class = "todo"></div>
 {% endblock %}
 

@@ -1,25 +1,67 @@
 'use strict';
 
-function Todolist(){
-    const [todolist, settodolist] = useState()
-    
-    const todo = [];
-    
-    const Header = () => {
-        return (
-            <header>
-                Now that you know the space weather, what are you going to do?
-            </header>
-            )
+
+function ToDo(props) {
+   
+    return (
+      <div className="todo">
+        <p>Id: {props.id} </p>
+        <p>Task: {props.task}</p>
+      </div>
+    );
+  }
+  
+
+
+function ToDoListContainer() {
+       
+    // make an example that tells state what to do
+    const exampleToDo = {
+      id: 'Id',
+      task: 'Example',
+    };
+    const [toDos, setToDos] = React.useState([exampleToDo]);
+   
+ 
+// set empty state for form
+    const [userInput, setUserInput] = React.useState('');
+
+//put form contents in array, then render todo objs from the array?
+    const addTask = () => {
+      // get form contents 
+      // put form contents into list called toDos
     }
-    // return <div>This is where my component goes</div>
-}   //i can wrap everything i'm returning in a <React.Fragment>
 
-function Todo(props) {
-    // this is a child element of the list container 
-    // it is passed the props from the todolist
-    // the todolist keeps track of the state
+// fxn to handle submit form that gets the user input
+    const handleSubmit = () => {
+        React.createElement.preventDefault();
+        addTask(userInput);
+        // reset the form to empty.
+        setUserInput('');
+    }
+       
 
-}
+ // make an array of todo components to render
+   const toDosToRender = [];
+   for (const currentToDo of toDos) {
+     toDosToRender.push(
+       <ToDo
+         key={currentToDo.toDoId}
+         task={currentToDo.task}
+       />
+     );
+   }
 
-ReactDOM.render(<Todolist />, document.querySelector("#todolist"));
+
+//   here's what this whole container renders: should be the up to date todo list
+    return <React.Fragment>
+        <div className="todo">{toDosToRender}</div>
+        (<form onSubmit = {handleSubmit}>
+            <input value = {userInput} type = "text" placeholder = "do more" />
+        </form>);
+        {/* <h1 style={{ color: 'white' }}>I'm in the return statement! Can you hear me?</h1> */}
+        </React.Fragment>
+  }
+  
+
+ReactDOM.render(<ToDoListContainer />, document.getElementById('todolist'));
