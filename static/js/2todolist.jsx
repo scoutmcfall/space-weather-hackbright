@@ -1,6 +1,15 @@
 'use strict';
 
+// class ListItem extends DoList {
+//     constructor(props){
+//         super(props);
+        
+//     }
+
+// }
+
 class DoList extends React.Component{
+    //construct a to-do object?
     constructor(props){
         super(props);
         this.state = {value: ""};
@@ -18,7 +27,9 @@ class DoList extends React.Component{
         const todo = this.state.value;
         alert("todo submitted:" + this.state.value);
         event.preventDefault();
+
         console.log(todo);
+        console.log(this.state.id);
 
     }
 
@@ -31,6 +42,7 @@ class DoList extends React.Component{
                 </label>
                 <input type = "submit" value = "add to-do" />
             </form>
+            <p>To-do list here: </p>
         </React.Fragment>
     }
 }
