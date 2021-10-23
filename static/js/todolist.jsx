@@ -3,20 +3,23 @@
 //this is a component
 function ListItem(props) {
   //make a listitem object out of userInput
-    //function to clear the task from the array on click
-    const clearTask = (evt) => {
+  props.listItems.push(props);
+  console.log(props.listItems)
+
+    const markDone = (evt) => {
       evt.preventDefault();
+      //marks the done prop as true
+      //eventually i will want to make this a toggle fxn
       console.log(props.listItems);
-      props.listItems.pop(evt.target.value);//part of the state of todolist parent
-      console.log(props.listItems);
+      evt.target.done = 'true';
+      console.log(evt.target.done);
     }
-  return (<div className = "todo">
-    {/* <p>key = {props.key}</p> */}
-    
-    <p><button onClick = {clearTask} value = {props.task} done = {false}> {props.task}</button></p>
+  return (<div className = "todo">    
+    <p>
+      <button onClick = {markDone} value = {props.task} done = 'false'> {props.task}</button>
+    </p>
   </div>
   );
-
 }
 
 //add a property of done or not done
@@ -26,7 +29,7 @@ function ListItem(props) {
 
 //this is a component
 function ToDoList() {
-
+  
   //this is a hook
   const [userInput, setUserInput] = React.useState('');
   
@@ -49,18 +52,18 @@ function ToDoList() {
     console.log(evt);
     setUserInput('');
   }
-  // const listObjects = [];
-  // for (const currentListItem of listItems) {
-  //     listObjects.push(
-  //       <ListItem
-  //       task = {currentListItem.task}
-  //     />
-  //       );
-  // }
 
+  // const doneItems = [];
+  // const clearDone = () =>{
+  //   for (let listItem of listItems) {
+  //       if listItem.done == 'true';
+  //         doneItems.push({listItem.task});
+  //   }
+  // }
 
 //return a react fragment containing ListItem in the return statement
   return <React.Fragment>
+    
     {/* //form getting userInput */}
       <form onSubmit = {handleSubmit}>
         <input type = "text" value = {userInput} placeholder = "do more" onChange = {handleChange} />
@@ -71,18 +74,13 @@ function ToDoList() {
       {/* user .map method on the list, copies each element in a list but can also pass it a callback fxn
       that tells it what each copy should look like so you can create elements */}
 
-        
     <ul>
       {listItems.map((listItem, index) => (
-        <ListItem key = {index}task = {listItem} listItems = {listItems} /> //can add more properties to it if i need to
+        <ListItem key = {index}task = {listItem} listItems = {listItems} done = 'false'/> //can add more properties to it if i need to
         // <p><button onClick = {clearTask} value = {listItem}> {listItem}</button></p>
       ))}
     </ul>
         
-
-{/* 
-        <button onClick = {clearTask} value = {listItems}>{listItems}</button>
-        <ListItem task = {userInput} /> */}
       </div>
        
       </React.Fragment>
