@@ -180,6 +180,11 @@ body {
 
 }
 
+/* this is for makring todo items as done in the todo app */
+.true {
+  color: rgba(0, 0, 0, 0.3);
+  text-decoration: line-through;
+}
 
 /* end homepage.html */
 
