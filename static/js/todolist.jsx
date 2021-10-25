@@ -75,7 +75,9 @@ function ToDoList() {
       {/* //form getting userInput */}
         <form onSubmit = {handleSubmit} className = "form-control form-control-lg">
           <input type = "text" value = {userInput} placeholder = "do more" onChange = {handleChange} />
-          <button type = "submit" className = "btn btn-outline-light">add item</button>
+          <p>
+            <button type = "submit" className = "btn btn-outline-light">add item</button>
+            </p>
         </form>
       {/* //up to date list */}
         <div className = "todo"><h1>To-Do List:</h1>
