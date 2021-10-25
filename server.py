@@ -65,10 +65,7 @@ def mainpage():
             format_cme_time = cme_time[:-1]
             date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
             date = date.split("T")[0]
-            print("**********************")
-            print(format_cme_time)
-            print(arrival)
-            print(arrival_statement)
+           
         else:
             impact = "will not"
             datetime = report["arrivalTime"].split("T")
@@ -97,9 +94,11 @@ def mainpage():
 
 @app.route("/forward-backward-epic")
 def forward_backward_epic():
+    print("**********************")
+
     print(request.args)
     js_date = request.args.get("result")
-    print(js_date)
+    print("this is the js_date" + js_date)
     
     #convert date 
     date = js_date.split(" ")
@@ -118,7 +117,6 @@ def forward_backward_epic():
 
     #get the filename first
     res = requests.get(file_url)
-    print("************************")
     print(res)
     # if res:
     search_result = res.json()
@@ -126,7 +124,7 @@ def forward_backward_epic():
         filename = search_result[0]['image']
         filedate = search_result[0]['date'].split()
         filedate = filedate[0]
-        print(filedate)
+        print("we're in the if" + filedate)
         epicdate = filedate.replace('-','/')
         # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
         img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
@@ -137,7 +135,7 @@ def forward_backward_epic():
         flash ("No photo for this date- was the Earth even there? Who knows.")
         img_url = "https://www.adgully.com/img/800/201906/earth-is-a-donut.jpg"
         return {"img_url": img_url}
-    print(date_strng)
+    print("this is the date strng variable" + date_strng)
     return date_strng
 
 
