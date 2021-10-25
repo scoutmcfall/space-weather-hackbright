@@ -58,11 +58,17 @@ def mainpage():
             impact = "will"
             blow = "Just a glancing blow, whatever that means."
             arrival = report["arrivalTime"].split("T")[1]
-            arrival_statement = "Time of impact:" + arrival
+            arrival = arrival[:-1]
+            arrival_statement = "Time of impact:" + arrival #this has a z at the end?
             cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
             cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
             format_cme_time = cme_time[:-1]
             date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
+            date = date.split("T")[0]
+            print("**********************")
+            print(format_cme_time)
+            print(arrival)
+            print(arrival_statement)
         else:
             impact = "will not"
             datetime = report["arrivalTime"].split("T")
