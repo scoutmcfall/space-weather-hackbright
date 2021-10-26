@@ -36,8 +36,9 @@
 <div class="container">
   <div class="row">
     <!-- left column -->
-    <div class="col-7">
-      
+    <div class="col-6">
+      <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+        value = "{{ epicdate }}" aria-label = "fred">
       <div class = "forward-backward">
         <form action = "/forward-backward-epic">
           <div class="btn-group" role="group">
@@ -48,24 +49,22 @@
           </div>
           </form>
       </div> 
-      <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
-        value = "{{ epicdate }}" aria-label = "fred">
        
       
   </div>
 
 <!-- right columm -->
-    <div class="col-5">
+    <div class="col-6">
         <h1>Watch Out!</h1>
         <h2><p>Coronal mass ejection on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
         <h3>It {{impact}} hit Earth. {{blow}}</h3>
         <h3>{{arrival_statement}}</h3> 
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-text="Today in space weather: " data-hashtags="NASA" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
+        <!-- <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-btn" data-text="Today in space weather: " data-hashtags="NASA" data-show-count="false">Tweet</a> -->
+        <button class = "twitter-btn" onClick = openTwitter()>Tweet</button>
 
         <!-- display most recent report from the donki api -->
         <form action = "/get-historical-data">
-          <h1>Stuck in the past?</h1>
+          <!-- <h1>Stuck in the past?</h1> -->
           <label>
             <h2>Start:</h2>
             <input id = "today" type="date" name="sdate" value = "">
@@ -154,24 +153,12 @@
   document.getElementById("forward").addEventListener("click", addDay)
   document.getElementById("backward").addEventListener("click", subtractDay)
 </script>
-
-
-
-<!-- <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script>window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
-
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-
-  return t;
-  }(document, "script", "twitter-wjs"));</script> -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script>
+function openTwitter(evt){
+  const url = "http://space-weather.com";
+  const text = "Space weather happening at {{format_cme_time}}";
+  window.open('http://twitter.com/share?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+}
+</script>
 {% endblock body %}
