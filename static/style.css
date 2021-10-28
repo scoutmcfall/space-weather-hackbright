@@ -179,24 +179,9 @@ body {
   font-size: 1vw;
 }
 
-/* this is for makring todo items as done (true) in the todo app */
-.true {
-  color: rgba(0, 0, 0, 0.3);
-  text-decoration: line-through;
-}
-.todo {
+.todolist {
     margin: auto;
     width: 80%;
-    padding: 70px 0;
-    text-align: center;
-    border: 1px solid black;
-   
-}
-.list {
-  margin:auto;
-  width: 80%;
-  padding: 10pm 0;
-  text-align: center;
 }
 
 .form-control{
