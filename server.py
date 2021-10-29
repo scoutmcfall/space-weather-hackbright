@@ -94,12 +94,7 @@ def mainpage():
 
 @app.route("/forward-backward-epic")
 def forward_backward_epic():
-    print("**********************")
-
-    print(request.args)
-    js_date = request.args.get("result")
-    print("this is the js_date" + js_date)
-    
+    js_date = request.args.get("result")    
     #convert date 
     date = js_date.split(" ")
     date = date[0:4]
@@ -110,11 +105,7 @@ def forward_backward_epic():
   
     #https://epic.gsfc.nasa.gov/api/enhanced/date/2015-10-31
     file_url = 'https://epic.gsfc.nasa.gov/api/enhanced/date/'+ date_strng
-    print(file_url)
-    #in order to page back in images, the back or forward buttons on the template
-    #would reset the start date as a day forward or backwards 
-
-
+  
     #get the filename first
     res = requests.get(file_url)
     print(res)
