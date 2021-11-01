@@ -159,6 +159,7 @@ def get_historical_data():
         # https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png
         img_url = 'https://epic.gsfc.nasa.gov/archive/enhanced/'+epicdate+'/png/'+filename +'.png'
     else: 
+        img_url = "https://www.adgully.com/img/800/201906/earth-is-a-donut.jpg"
         flash ("Sorry! No EPIC photo of the Earth for that date.")
 
 
