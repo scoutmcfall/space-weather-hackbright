@@ -90,36 +90,39 @@ margin-left: 4px;
 			
 			</div>
 			<div class="card-body">
-				<form action="/users" method="POST" class = "form-signin">
-					<div class="input-group form-group">
-						<input type="text" class="form-control" placeholder="username">
+                   <!-- log in -->
+                   <form action="/handle-login" method="POST" class = "form-signin">
+                    <div class="input-group form-group">
+						<input type="text" name = "login_email" class="form-control" placeholder="email address" required = "" autofocus = "">
 					</div>
 					<div class="input-group form-group">
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" name = "login_password" class="form-control" placeholder="password" required = "">
 					</div>
 				
 					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn" onclick="loading();">
+						<input type="submit" value="Log In" name = "anything_submit" class="btn float-right login_btn" onclick="loading();">
 					</div>
-				</form>
+                </form>
+             
 			</div>
 
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account? Sign Up:
+					Don't have an account? 
 				</div>
-                <form action="/handle-login" method="POST" class = "form-signin">
-                    <div class="input-group form-group">
-						<input type="text" class="form-control" placeholder="username">
+                <!-- create an account -->
+				<form action="/users" method="POST" class = "form-signin">
+					<div class="input-group form-group">
+						<input type="text" name = "email" class="form-control" placeholder="email address" autofocus = "">
 					</div>
 					<div class="input-group form-group">
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" name = "password" class="form-control" placeholder="password">
 					</div>
 				
 					<div class="form-group">
-						<input type="submit" value="Create" class="btn float-right login_btn" onclick="loading();">
+						<input type="submit" value="Create" name = "anything_submit" class="btn float-right login_btn" onclick="loading();">
 					</div>
-                </form>
+				</form>
 			
 			</div>
 		</div>
