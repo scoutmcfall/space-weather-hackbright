@@ -2,14 +2,23 @@
 {% block title %}Sign Up or Log in to Space Weather{% endblock %}
 
 
-{% block head %} {% endblock %}
+{% block head %} 
+<style>
+    body {
+    background-image: url(/static/nasa-Yj1M5riCKk4-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 <body class="text-center">
   
 <div class="row">
     <div class="col-xs-1 center-block text-center">
-        <img src = "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png" width="600" height="600">
+        <!-- <img src = "https://epic.gsfc.nasa.gov/archive/natural/2015/10/31/png/epic_1b_20151031074844.png" width="600" height="600"> -->
 
         <h1 class= "h3 mb-3 font-weight-normal">welcome to space weather, please sign in</h1>
         <form action="/users" method="POST" class = "form-signin">

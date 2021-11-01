@@ -1,4 +1,60 @@
+/* from demo */
+.nav-transparent {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), transparent);
+  font-size: 1.2em;
+  z-index: 100;
+}
 
+.nav-transparent .nav-link,
+.nav-transparent .navbar-brand, 
+.nav-transparent p {
+  color: white;
+}
+
+.nav-transparent .navbar-brand {
+  font-weight: bold;
+}
+
+.nav-transparent .navbar-brand:hover,
+.nav-transparent .nav-link:hover {
+  color: #ffec5c;
+}
+
+.fade-in-color {
+  color: rgb(243, 55, 181);;
+  transition: 0.5s color ease;
+}
+
+.fade-in-color:hover {
+  color: rgb(55, 170, 243);
+  text-decoration: none;
+}
+
+.custom-input-2 {
+  border: 0;
+  background: #eee;
+  padding: 0.5em;
+}
+
+.custom-input-2:focus {
+  box-shadow: 0 1px 5px #aaa;
+}
+
+.custom-button-1 {
+  border: 1px solid black;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 black;
+  background: white;
+}
+
+.custom-button-1:hover {
+  background: black;
+  color: white;
+  box-shadow: 2px 2px 0 gray;
+}
+
+
+/* ----------------------- */
 
 .msg{
   color: white;}
