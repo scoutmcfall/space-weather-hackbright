@@ -43,13 +43,13 @@ background-color: rgba(0,0,0,0.5) !important;
 color: white;
 }
 
-.input-group-prepend span{
+/* .input-group-prepend span{
 width: 50px;
 height: 50px;
 background-color: #ff12C4;
 color: black;
 border:0 !important;
-}
+} */
 
 input:focus{
 outline: 0 0 0 0  !important;
@@ -75,6 +75,13 @@ color: white;
 margin-left: 4px;
 }
 
+#signup{
+    display: none;
+}
+h3.hidden {
+  visibility: hidden;
+}
+
 </style>
 {% endblock %}
 
@@ -85,7 +92,7 @@ margin-left: 4px;
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3>Sign In</h3>
+				<h3 class = "hidden">Sign In</h3>
 			
 			</div>
 			<div class="card-body">
@@ -107,10 +114,15 @@ margin-left: 4px;
 
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account? 
+					Don't have an account?
+                    <div>
+                        <button class="btn float-right login_btn" onclick="toggleShow()">Sign Up</button>
+
+                    </div>
 				</div>
                 <!-- create an account -->
-				<form action="/users" method="POST" class = "form-signin">
+				<div id = "signup" display = "none">
+                <form action="/users" method="POST" class = "form-signin">
 					<div class="input-group form-group">
 						<input type="text" name = "email" class="form-control" placeholder="email address" autofocus = "">
 					</div>
@@ -122,7 +134,7 @@ margin-left: 4px;
 						<input type="submit" value="Create" name = "anything_submit" class="btn float-right login_btn" onclick="loading();">
 					</div>
 				</form>
-			
+			    </div>
 			</div>
 		</div>
 	</div>
@@ -174,5 +186,14 @@ margin-left: 4px;
         <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Log In" onclick="loading();">
     </form> -->
 
-
+    <script>
+        function toggleShow() {
+          var x = document.getElementById("signup");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+        </script>
 {% endblock %}

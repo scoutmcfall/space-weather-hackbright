@@ -8,7 +8,7 @@
 .nav-transparent .nav-link,
 .nav-transparent .navbar-brand, 
 .nav-transparent p {
-  color: white;
+  color: rgb(243, 55, 181);;
 }
 
 .nav-transparent .navbar-brand {
@@ -17,7 +17,7 @@
 
 .nav-transparent .navbar-brand:hover,
 .nav-transparent .nav-link:hover {
-  color: #ffec5c;
+  color: rgb(243, 55, 181);;
 }
 
 .fade-in-color {
@@ -26,7 +26,7 @@
 }
 
 .fade-in-color:hover {
-  color: rgb(55, 170, 243);
+  color: rgb(243, 55, 181);;
   text-decoration: none;
 }
 
@@ -44,12 +44,12 @@
   border: 1px solid black;
   border-radius: 0;
   box-shadow: 2px 2px 0 black;
-  background: white;
+  color: rgb(243, 55, 181);;
 }
 
 .custom-button-1:hover {
   background: black;
-  color: white;
+  color: rgb(243, 55, 181);;
   box-shadow: 2px 2px 0 gray;
 }
 
@@ -57,7 +57,8 @@
 /* ----------------------- */
 
 .msg{
-  color: white;}
+  color: rgb(243, 55, 181);
+} 
   /* dark mode babyyyyyyyyy */
 
 /* end base.html style */
