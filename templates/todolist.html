@@ -5,11 +5,48 @@
 {% block head %}
     <!-- this script tells the template where to find the js containing 
         the app i'm mounting to a div on this page -->
-    <script>alert("you're doing a good job! weeeeeeeè")</script>
-        <script src = "/static/js/3todolist.jsx" type="text/jsx"></script>
+<script>alert("you're doing a good job! weeeeeeeè")</script>
+<script src = "/static/js/3todolist.jsx" type="text/jsx"></script>
+<style>
+.container{
+height: 100%;
+align-content: bottom;
+}
+
+.card{
+height: 400px;
+margin-top: auto;
+margin-bottom: auto;
+width: 700px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+html,body{
+background-image: url(/static/nasa-Yj1M5riCKk4-unsplash.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center center;
+height: 100%;
+}
+</style>
 {% endblock %}
 
 {% block body %} 
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg nav-transparent sticky-top">
+        <a class="navbar-brand" href="#">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/main">Home</a>
+            <a class="nav-link" href="/todo-list" class="btn btn-outline-light">List</a>
+            <a class="nav-link" href="/profile" class="btn btn-outline-light">Profile</a>
+            <a class="nav-link" href="/logout" class = "btn btn-outline-light"> Log Out </a>
+          </div>
+        </div>
+      </div>
+    </nav>
         <!-- mounting my react components to this element -->
         <div id="todolist" class = "todo"></div>
 {% endblock %}

@@ -40,6 +40,9 @@ function Todo(){
     };
     //here's what's actually rendered on the page:
     return (
+        <div class="container">
+	    <div class="d-flex justify-content-center h-100">
+		<div class="card">
         <div>
         <h2>To-Do List:</h2>
         <table>
@@ -86,6 +89,11 @@ function Todo(){
         </tbody>
     </table>
     </div>
+    </div>
+
+    </div>
+    </div>
+
     );
 }
 
