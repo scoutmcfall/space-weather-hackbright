@@ -4,7 +4,82 @@
 
 {% block head %} 
 <!-- <script src = "/static/js/3todolist.jsx" type="text/jsx"></script> -->
+<style>
+    #update {
+        display: none;
+    }
+    @import url('https://fonts.googleapis.com/css?family=Numans');
 
+html,body{
+background-image: url(/static/nasa-Yj1M5riCKk4-unsplash.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center center;
+
+height: 100%;
+/* font-family: 'Numans', sans-serif; */
+}
+
+.container{
+height: 100%;
+/* align-content: bottom; */
+/* justify-content: center; */
+}
+
+.card{
+height: 295px;
+margin-top: auto;
+margin-bottom: auto;
+width: 700px;
+background-color: rgba(0,0,0,0.5) !important;
+padding: 10px;
+
+position: absolute;
+top: 50%;
+transform: translate(0, -50%);
+/* border: 5px solid #FFFF00; */
+padding: 10px;
+}
+
+}
+
+
+.card-header h3{
+color: white;
+}
+
+/* .input-group-prepend span{
+width: 50px;
+height: 50px;
+background-color: #ff12C4;
+color: black;
+border:0 !important;
+} */
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+}
+
+.login_btn{
+color: black;
+background-color: #ff12c4;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+</style>
 {% endblock head %}
 
 {% block body %}
@@ -14,13 +89,55 @@
 </div>
 
 <div id = "content">
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Hello {{session.get("user_email")}}!</h3>
+                
+                </div>
+                <div class="card-body">
+                    <h2>
+                        Thank you for rating {{num_rates}} photo(s) of Earth.
+                        <br>
+                        On average, you rate photos of the earth {{avg_user_rating}} out of 5 stars.
+                    </h2>
+                </div>
+    
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        <div>
+                            <button class="btn float-right login_btn" onclick="toggleShow()">Update info</button>
+
+                        </div>
+                    </div>
+                    <!-- update info -->
+                    <div id = "update" display = "none">
+                    <form action="/email-update" method="POST" class = "form-signin">
+                        <div class="input-group form-group">
+                            <input type="text" name = "new_email" class="form-control" placeholder="email address" autofocus = "">
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="password" name = "change_password" class="form-control" placeholder="old password">
+                            <input type="password" name = "new_passwordpassword" class="form-control" placeholder="new password">
+                        </div>
+                    
+                        <div class="form-group">
+                            <input type="submit" value="Update" name = "anything_submit" class="btn float-right login_btn" onclick="loading();">
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- <div id = "content">
     <h1>Hello {{session.get("user_email")}}!</h1>
     <h2>
         Thank you for rating {{num_rates}} photo(s) of Earth.
         <br>
         On average, you rate photos of the earth {{avg_user_rating}} out of 5 stars.
     </h2>
-    <!-- <div id="todolist" class = "todo"></div> -->
 
     <br>
     Would you like to update your information?
@@ -29,7 +146,6 @@
 
 <div id = "update-info" style = "display:none;">
 <form action="/email-update" method="POST">
-    <!-- <input type="text" name="change_email" placeholder="Give me old email" style="height:26px;font-size:14pt;"> -->
     <input type="text" name="new_email" placeholder="Give me new email.">
     <input type="submit" class = "btn btn-outline-light" name="anything_submit" value="Update email" onclick="loading();">
 </form>
@@ -41,6 +157,15 @@
 </form>
 </div>
 
-<a href = "/main" class = "btn btn-outline-light">ReVERT</a>
-
+<a href = "/main" class = "btn btn-outline-light">ReVERT</a> -->
+<script>
+    function toggleShow() {
+      var x = document.getElementById("update");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    </script>
 {% endblock %}
