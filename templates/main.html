@@ -16,8 +16,10 @@
 
 .left {
   left: 0;
-  margin-left: 50px;}
-  
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
 
 .right {
   right: 0;
@@ -78,23 +80,22 @@
 <!-- <div class="split left"> -->
   <div class="col-6 left">
   <!-- <div class="centered"> -->
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
+    
     <h1>Watch Out!</h1>
     <h2><p> 
       <div class="hover_img">
-        <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="100" /></span></a>
+        <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="300" /></span></a>
       </div>
       on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
     <h3>Impact Earth? {{impact}} {{blow}}</h3>
     <h3>{{arrival_statement}}</h3> 
+
     <button class = "btn btn-outline-light" onClick = openTwitter()>Tweet this</button>
-  
+    <div style = "height: 150px;"></div>
+
       <!-- display most recent report from the donki api -->
       <form action = "/get-historical-data">
-        <!-- <h1>Stuck in the past?</h1> -->
+        <h1>Curious about the past?</h1>
         <label>
           start:
           <input id = "today" type="date" name="sdate" value = "">

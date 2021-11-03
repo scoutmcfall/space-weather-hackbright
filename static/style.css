@@ -156,14 +156,14 @@ body {
 .hover_img a { position:relative; }
 .hover_img a span { position:absolute; display:none; z-index:99; }
 .hover_img a:hover span { display:block; }
+
 a{
   color: #ff12c4;
 }
 
 a :hover{
-  
     color: rgb(243, 55, 181);
-    text-decoration: none;
+    /* text-decoration: none; */
   
 }
 .epic-btn{
