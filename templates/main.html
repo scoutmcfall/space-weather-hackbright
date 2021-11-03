@@ -3,7 +3,40 @@
 
 
 {% block head %} 
+<style>
+  .split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
+.left {
+  left: 0;
+  /* background-color: #111; */
+}
+
+.right {
+  right: 0;
+  /* background-color: red; */
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+</style>
 {% endblock %}
 
 {% block body %}
@@ -11,7 +44,9 @@
   <a href="https://i.giphy.com/media/3og0ICq6RIHdzjyDAI/giphy.webp"></a>
   <h1> Thank you for waiting while we go to space and back.</h1>
 </div>
-<div class="container-fluid">
+
+<div id="content">
+
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg nav-transparent sticky-top">
   <a class="navbar-brand" href="#">
@@ -29,10 +64,92 @@
 </div>
 </nav>
 
-<div id="content">
-  <div class="row">
+
+<!-- image of earth -->
+<div class="split left">
+  <div class="centered">
+    <!-- <img src="img_avatar2.png" alt="Avatar woman"> -->
+    <h1>Watch Out!</h1>
+    <h2><p> 
+      <div class="hover_img">
+        <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="300" /></span></a>
+      </div>
+      on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
+    <h3>Impact Earth? {{impact}} {{blow}}</h3>
+    <h3>{{arrival_statement}}</h3> 
+    <button class = "btn btn-outline-light" onClick = openTwitter()>Tweet this</button>
+  
+      <!-- display most recent report from the donki api -->
+      <form action = "/get-historical-data">
+        <!-- <h1>Stuck in the past?</h1> -->
+        <label>
+          <h2>Start:</h2>
+          <input id = "today" type="date" name="sdate" value = "">
+       
+          <h2>End:</h2>
+          <input id = "today" type="date" name="edate" value = "">
+        </label>
+        <br>
+        <div class="btn-group" role="group">
+          <input type="submit" class = "btn btn-outline-light" onclick="loading();">
+          <button type="reset" class = "btn btn-outline-light" value="Reset">Reset</button>
+        </div>
+      </form>
+    </div>  
+  </div>
+</div>
+
+<!-- donki forecast -->
+<div class="split right">
+  <div class="centered">
+    <div class = "forward-backward">
+      <form action = "/forward-backward-epic">
+        <div class="epic-btn">
+          <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
+            title = "{{ epicdate }}" >&#60;</button>
+            <span><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+            value = "{{ epicdate }}" aria-label = "fred"></span>
+          <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
+            title = "{{ epicdate }}" >&#62;</button>
+        </div>
+        </form>
+    </div>
+    <form action = '/rate' method = "POST">
+      <div class="rate">
+        <input type="radio" id="star5" name="num_stars" value="5" />
+        <label for="star5" title="text">5 stars</label>
+        <input type="radio" id="star4" name="num_stars" value="4" />
+        <label for="star4" title="text">4 stars</label>
+        <input type="radio" id="star3" name="num_stars" value="3" />
+        <label for="star3" title="text">3 stars</label>
+        <input type="radio" id="star2" name="num_stars" value="2" />
+        <label for="star2" title="text">2 stars</label>
+        <input type="radio" id="star1" name="num_stars" value="1" />
+        <label for="star1" title="text">1 star</label>
+        <br>
+        <br>
+      </div>
+     <div class = "comment">
+      <input type="text" name="comment" placeholder="leave a comment" style="height:26px;font-size:14pt;">
+      <input type="hidden" name="epic_url" value="{{epic_url}}">
+      <input type="hidden" name="donki_url" value="{{donki_url}}">
+      <input type="submit" class = "btn btn-outline-light" onclick="loading();">
+      </form>
+  
+  </div>
+</div>
+
+<!-- end content div: -->
+</div> 
+
+
+
+<!-- <div class="container-fluid"> -->
+
+<!-- <div id="content">
+  <div class="row"> -->
   <!-- donki forecast -->
-    <div class = "col-6 justify-content-center">
+    <!-- <div class = "col-6 justify-content-center">
         <h1>Watch Out!</h1>
         <h2><p> 
           <div class="hover_img">
@@ -42,9 +159,9 @@
         <h3>Impact Earth? {{impact}} {{blow}}</h3>
         <h3>{{arrival_statement}}</h3> 
         <button class = "btn btn-outline-light" onClick = openTwitter()>Tweet this</button>
-    </div>
-    <div class = "col-6 justify-content-center">
-      <div class = "forward-backward">
+    </div> -->
+    <!-- <div class = "col-6 justify-content-center"> -->
+      <!-- <div class = "forward-backward">
         <form action = "/forward-backward-epic">
           <div class="epic-btn">
             <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
@@ -55,16 +172,16 @@
               title = "{{ epicdate }}" >&#62;</button>
           </div>
           </form>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div>
   </div>
   <div class="row">
-    <div class = "col-6 justify-content-center">
+    <div class = "col-6 justify-content-center"> -->
 
         <!-- display most recent report from the donki api -->
-        <form action = "/get-historical-data">
+        <!-- <form action = "/get-historical-data"> -->
           <!-- <h1>Stuck in the past?</h1> -->
-          <label>
+          <!-- <label>
             <h2>Start:</h2>
             <input id = "today" type="date" name="sdate" value = "">
          
@@ -77,7 +194,7 @@
             <button type="reset" class = "btn btn-outline-light" value="Reset">Reset</button>
           </div>
         </form>
-      </div>    
+      </div>     -->
     <!-- <div class = "col-6 justify-content-center">
       <div class = "forward-backward">
         <form action = "/forward-backward-epic">
@@ -92,26 +209,16 @@
           </form>
       </div>
     </div> -->
-  </div>
-  <div class="row">
+  <!-- </div>
+  <div class="row"> -->
     <!-- <div class = "col-6 justify-content-center">
         <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
         value = "{{ epicdate }}" aria-label = "fred">
     </div> -->
     <!-- EPIC photo -->
-    <div class = "col-6 justify-content-center">
+    <!-- <div class = "col-6 justify-content-center"> -->
          <!-- <p>Rate this Earth from 1-5 stars:</p> -->
-      <form action = '/rate' method = "POST">
-          <!-- <div class = "forward-backward">
-            <form action = "/forward-backward-epic">
-              <div class="btn-group" role="group">
-                <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
-                  title = "{{ epicdate }}" >Previous</button>
-                <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
-                  title = "{{ epicdate }}" >Next</button>
-              </div>
-              </form>
-          </div>  -->
+      <!-- <form action = '/rate' method = "POST">
         <div class="rate">
           <input type="radio" id="star5" name="num_stars" value="5" />
           <label for="star5" title="text">5 stars</label>
@@ -131,9 +238,9 @@
         <input type="hidden" name="epic_url" value="{{epic_url}}">
         <input type="hidden" name="donki_url" value="{{donki_url}}">
         <input type="submit" class = "btn btn-outline-light" onclick="loading();">
-        </form>
-      </div>
-    </div>
+        </form> -->
+      <!-- </div>
+    </div> -->
 <!-- </div> -->
 
 
