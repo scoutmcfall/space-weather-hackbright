@@ -123,7 +123,7 @@ def forward_backward_epic():
         return {"img_url": img_url}
     else: 
         # put in some sad funny picture
-        flash ("No photo for this date- was the Earth even there? Who knows.")
+        # flash ("No photo for this date- was the Earth even there? Who knows.")
         img_url = "https://www.adgully.com/img/800/201906/earth-is-a-donut.jpg"
         return {"img_url": img_url}
     print("this is the date strng variable" + date_strng)

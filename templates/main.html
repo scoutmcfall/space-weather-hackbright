@@ -32,9 +32,17 @@
   text-align: center;
 }
 
+.donki{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .centered img {
-  width: 150px;
-  border-radius: 50%;
+  width: 100%;
+
+  border-radius: 5%;
 }
 </style>
 {% endblock %}
@@ -65,14 +73,19 @@
 </nav>
 
 
-<!-- image of earth -->
-<div class="split left">
-  <div class="centered">
-    <!-- <img src="img_avatar2.png" alt="Avatar woman"> -->
+<div class = "row">
+<!-- donki forecast -->
+<!-- <div class="split left"> -->
+  <div class="col-6">
+  <!-- <div class="centered"> -->
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
     <h1>Watch Out!</h1>
     <h2><p> 
       <div class="hover_img">
-        <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="300" /></span></a>
+        <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="100" /></span></a>
       </div>
       on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
     <h3>Impact Earth? {{impact}} {{blow}}</h3>
@@ -83,10 +96,10 @@
       <form action = "/get-historical-data">
         <!-- <h1>Stuck in the past?</h1> -->
         <label>
-          <h2>Start:</h2>
+          start:
           <input id = "today" type="date" name="sdate" value = "">
-       
-          <h2>End:</h2>
+          <br>
+          end:
           <input id = "today" type="date" name="edate" value = "">
         </label>
         <br>
@@ -96,19 +109,22 @@
         </div>
       </form>
     </div>  
-  </div>
-</div>
+  <!-- </div> -->
+<!-- </div> -->
 
-<!-- donki forecast -->
-<div class="split right">
-  <div class="centered">
+<!-- epic photo -->
+<!-- <div class="split right"> -->
+  <!-- <div class="centered"> -->
+    <div class="col-5 text-center">
     <div class = "forward-backward">
       <form action = "/forward-backward-epic">
+        <span><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+          value = "{{ epicdate }}" aria-label = "fred"></span>
         <div class="epic-btn">
           <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
             title = "{{ epicdate }}" >&#60;</button>
-            <span><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
-            value = "{{ epicdate }}" aria-label = "fred"></span>
+            <!-- <div><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+            value = "{{ epicdate }}" aria-label = "fred"></div> -->
           <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
             title = "{{ epicdate }}" >&#62;</button>
         </div>
@@ -129,16 +145,17 @@
         <br>
         <br>
       </div>
-     <div class = "comment">
-      <input type="text" name="comment" placeholder="leave a comment" style="height:26px;font-size:14pt;">
+     <!-- <div class = "comment"> -->
+      <div class = "form-control">
+
+      <input type="text" class = "input-lg align-middle" name="comment" placeholder="leave a comment" style="height:35px;font-size:14pt;">
       <input type="hidden" name="epic_url" value="{{epic_url}}">
       <input type="hidden" name="donki_url" value="{{donki_url}}">
       <input type="submit" class = "btn btn-outline-light" onclick="loading();">
       </form>
   
   </div>
-</div>
-
+<!-- </div> -->
 <!-- end content div: -->
 </div> 
 
