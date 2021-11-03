@@ -55,7 +55,7 @@ def mainpage():
         report = search_results[-1]['impactList'][0]
         impact = report['isGlancingBlow']
         if impact == True:
-            impact = "will"
+            impact = "Yes."
             blow = "Just a glancing blow, whatever that means."
             arrival = report["arrivalTime"].split("T")[1]
             arrival = arrival[:-1]
@@ -67,7 +67,7 @@ def mainpage():
             date = date.split("T")[0]
            
         else:
-            impact = "will not"
+            impact = "No."
             datetime = report["arrivalTime"].split("T")
             date = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[0]
             cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
@@ -77,7 +77,7 @@ def mainpage():
             cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
             blow = ""
     else:
-        impact = "will not"
+        impact = "No."
         date = search_results[-1]['modelCompletionTime'].split("T")[0]
         arrival = ""
         arrival_statement = ""
@@ -178,7 +178,7 @@ def get_historical_data():
             report = search_results[-1]['impactList'][0]
             impact = report['isGlancingBlow']
             if impact == True:
-                impact = "will"
+                impact = "Yes."
                 blow = "Just a glancing blow, whatever that means."
                 arrival = report["arrivalTime"].split("T")[1]
                 arrival_statement = "Time of impact:" + arrival
@@ -188,7 +188,7 @@ def get_historical_data():
                 date = search_results[-1]["cmeInputs"][0]["cmeStartTime"]
                 
             else:
-                impact = "will not"
+                impact = "No."
                 datetime = report["arrivalTime"].split("T")
                 date = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[0]
                 cme_time = search_results[-1]["cmeInputs"][0]["cmeStartTime"].split("T")[1]
@@ -198,7 +198,7 @@ def get_historical_data():
                 cme_speed = search_results[-1]["cmeInputs"][0]["speed"]
                 blow = ""
         else:
-            impact = "will not"
+            impact = "No."
             date = search_results[-1]['modelCompletionTime'].split("T")[0]
             arrival = ""
             arrival_statement = ""

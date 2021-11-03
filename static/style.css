@@ -258,3 +258,12 @@ body {
 a{
   color: #ff12c4;
 }
+.epic-btn{
+position: relative;
+align-items: center;
+}
+.epic-btn .btn{
+  display: inline block;
+  float: horizontal;
+
+}

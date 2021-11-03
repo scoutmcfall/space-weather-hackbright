@@ -29,18 +29,37 @@
 </div>
 </nav>
 
-<div id="content" class="d-flex justify-content-center links">
-<!-- donki forecast -->
-    <div>
+<div id="content">
+  <div class="row">
+  <!-- donki forecast -->
+    <div class = "col-6 justify-content-center">
         <h1>Watch Out!</h1>
         <h2><p> 
           <div class="hover_img">
             <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="300" /></span></a>
           </div>
           on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
-        <h3>It {{impact}} hit Earth. {{blow}}</h3>
+        <h3>Impact Earth? {{impact}} {{blow}}</h3>
         <h3>{{arrival_statement}}</h3> 
-        <button class = "twitter-btn" onClick = openTwitter()>Tweet</button>
+        <button class = "btn btn-outline-light" onClick = openTwitter()>Tweet this</button>
+    </div>
+    <div class = "col-6 justify-content-center">
+      <div class = "forward-backward">
+        <form action = "/forward-backward-epic">
+          <div class="epic-btn">
+            <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
+              title = "{{ epicdate }}" >&#60;</button>
+              <span><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+              value = "{{ epicdate }}" aria-label = "fred"></span>
+            <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
+              title = "{{ epicdate }}" >&#62;</button>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class = "col-6 justify-content-center">
 
         <!-- display most recent report from the donki api -->
         <form action = "/get-historical-data">
@@ -58,22 +77,32 @@
             <button type="reset" class = "btn btn-outline-light" value="Reset">Reset</button>
           </div>
         </form>
-
-          <!-- <div class="row"> -->
-    <!-- left column -->
-    <div class="col-8">
-      <!-- <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
-        value = "{{ epicdate }}" aria-label = "fred"> -->
-    
-       
-      
-  <!-- </div> -->
+      </div>    
+    <!-- <div class = "col-6 justify-content-center">
+      <div class = "forward-backward">
+        <form action = "/forward-backward-epic">
+          <div class="btn-group" role="group">
+            <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
+              title = "{{ epicdate }}" ><</button>
+              <span><img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+              value = "{{ epicdate }}" aria-label = "fred"></span>
+            <button  class = "btn btn-outline-light" name="forward_date" value = "{{ epicdate }}" id = "forward" 
+              title = "{{ epicdate }}" >></button>
+          </div>
+          </form>
+      </div>
+    </div> -->
+  </div>
+  <div class="row">
+    <!-- <div class = "col-6 justify-content-center">
+        <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
+        value = "{{ epicdate }}" aria-label = "fred">
+    </div> -->
+    <!-- EPIC photo -->
+    <div class = "col-6 justify-content-center">
          <!-- <p>Rate this Earth from 1-5 stars:</p> -->
       <form action = '/rate' method = "POST">
-        <span class="input-group-addon">
-          <img src= {{img_url}} id = "epic_p" class="img-fluid" alt="photo of the earth from space" data-toggle="tooltip" data-placement="top" 
-          value = "{{ epicdate }}" aria-label = "fred"> </span>
-          <div class = "forward-backward">
+          <!-- <div class = "forward-backward">
             <form action = "/forward-backward-epic">
               <div class="btn-group" role="group">
                 <button  class = "btn btn-outline-light" name = "backward_date" value = "{{ epicdate }}" id = "backward" 
@@ -82,7 +111,7 @@
                   title = "{{ epicdate }}" >Next</button>
               </div>
               </form>
-          </div> 
+          </div>  -->
         <div class="rate">
           <input type="radio" id="star5" name="num_stars" value="5" />
           <label for="star5" title="text">5 stars</label>
@@ -105,7 +134,7 @@
         </form>
       </div>
     </div>
-</div>
+<!-- </div> -->
 
 
 

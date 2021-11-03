@@ -4,9 +4,9 @@
 
 {% block head %} 
 <style>
-    #update {
-        display: none;
-    }
+#update {
+    visibility: hidden;
+}
     @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
@@ -113,11 +113,10 @@ margin-left: 4px;
                     <div class="d-flex justify-content-center links">
                         <div>
                             <button class="btn float-right login_btn" onclick="toggleShow()">Update info</button>
-
                         </div>
                     </div>
                     <!-- update info -->
-                    <div id = "update" display = "none">
+                    <div id = "update">
                     <form action="/email-update" method="POST" class = "form-signin">
                         <div class="input-group form-group">
                             <input type="text" name = "new_email" class="form-control" placeholder="email address" autofocus = "">
@@ -166,10 +165,12 @@ margin-left: 4px;
 <script>
     function toggleShow() {
       var x = document.getElementById("update");
-      if (x.style.display === "none") {
-        x.style.display = "block";
+      console.log(x.style.visibility);
+      console.log(x.id);
+      if (x.style.visibility !== "visible") {
+        x.style.visibility = "visible";
       } else {
-        x.style.display = "none";
+        x.style.visibility = "hidden";
       }
     }
     </script>
