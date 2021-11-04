@@ -161,7 +161,7 @@ a{
   color: #ff12c4;
 }
 
-a :hover{
+a:hover{
     color: rgb(243, 55, 181);
     /* text-decoration: none; */
   
