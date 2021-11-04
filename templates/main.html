@@ -33,7 +33,9 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-
+.width-label {
+  width: 4.5em;
+}
 /* .donki{
   position: absolute;
   top: 50%;
@@ -86,7 +88,7 @@
       <div class="hover_img">
         <a href="#">Coronal mass ejection<span><img src="https://i.giphy.com/media/l2Sq7UcchYPqoR3vq/giphy.webp" alt="cme gif" height="300" /></span></a>
       </div>
-      on {{date}} at {{format_cme_time}} traveling at {{cme_speed}} km/s!</p></h2>
+      on {{date}} at {{format_cme_time}} UT traveling at {{cme_speed}} km/s!</p></h2>
     <h3>Impact Earth? {{impact}} {{blow}}</h3>
     <h3>{{arrival_statement}}</h3> 
 
@@ -96,13 +98,12 @@
       <!-- display most recent report from the donki api -->
       <form action = "/get-historical-data">
         <h1>Curious about the past?</h1>
-        <label>
-          start:
+        <label class = "width-label"> start:</label>
           <input id = "today" type="date" name="sdate" value = "">
+  
           <br>
-          end:
+        <label class = "width-label">end:</label>
           <input id = "today" type="date" name="edate" value = "">
-        </label>
         <br>
         <div class="btn-group" role="group">
           <input type="submit" class = "btn btn-outline-light" onclick="loading();">
