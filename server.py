@@ -56,7 +56,7 @@ def mainpage():
         impact = report['isGlancingBlow']
         if impact == True:
             impact = "Yes."
-            blow = "Just a glancing blow, whatever that means."
+            blow = "Just a glancing blow."
             arrival = report["arrivalTime"].split("T")[1]
             arrival = arrival[:-1]
             arrival_statement = "Time of impact:" + arrival #this has a z at the end?
@@ -179,7 +179,7 @@ def get_historical_data():
             impact = report['isGlancingBlow']
             if impact == True:
                 impact = "Yes."
-                blow = "Just a glancing blow, whatever that means."
+                blow = "Just a glancing blow."
                 arrival = report["arrivalTime"].split("T")[1]
                 arrival_statement = "Time of impact:" + arrival
                 cme_speed = search_results[-1]["cmeInputs"][0]["speed"]

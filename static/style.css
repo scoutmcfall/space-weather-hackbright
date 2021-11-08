@@ -80,6 +80,7 @@ body {
       border: 1px solid black;
       float: left;
       height: 46px;
+      /* height: 75px; */
       padding: 0 10px;
   }
   .rate:not(:checked) > input {
@@ -92,7 +93,9 @@ body {
       overflow:hidden;
       white-space:nowrap;
       cursor:pointer;
-      font-size:30px;
+      /* font-size:30px; */
+      font-size:40px;
+
       color:#ccc;
   }
   .rate:not(:checked) > label:before {
