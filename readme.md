@@ -51,7 +51,7 @@
 7. Or just use their demo key.
 8. Make a `secrets.sh` file to hold the API key
 
-![react to-do list](/home/hackbright/src/space-weather/static/Screen Shot 2021-11-09 at 3.37.18 PM.png)
+![react to-do list](space-weather/static/Screen Shot 2021-11-09 at 3.37.18 PM.png)
 
 
 *The incredible loading gif comes from digital artist: [Lin Jacqueline](https://linjacqueline.com/) *
