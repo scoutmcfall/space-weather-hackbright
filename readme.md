@@ -2,7 +2,7 @@
 
 # space_weather
 ## Hello! and welcome to space_weather (we've been expecting you)
-
+[Watch a demo here!](https://youtu.be/2KJWplzIRFQ)
 ### Description
 
 **space_weather is a subtle tool for starting your day with a gentle existential reset. The main page shows a photo of Earth from NASA's EPIC API, with the opportunity to rate the photo from 1-5 stars and leave a comment. Accompanying this is the most recent report on coronal mass ejections from NASA's DONKI API. User data is stored in a PostgreSQL database and accessed using SQLAlchemy in Python. The front end is styled with Bootstrap and custom CSS, and utilizes Javascript, HTML, and React.js. Each user's profile describes their rating stats and has the option to change their info. After contemplating their stellar insignificance, the user can create a to-do list so that they're approaching their day with renewed prioritization.**
