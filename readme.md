@@ -1,13 +1,12 @@
 
 
 # space_weather
-## hello! and welcome to space_weather (we've been expecting you)
+## Hello! and welcome to space_weather (we've been expecting you)
 
-### description
+### Description
 
 **space_weather is a subtle tool for starting your day with a gentle existential reset. The main page shows a photo of Earth from NASA's EPIC API, with the opportunity to rate the photo from 1-5 stars and leave a comment. Accompanying this is the most recent report on coronal mass ejections from NASA's DONKI API. User data is stored in a PostgreSQL database and accessed using SQLAlchemy in Python. The front end is styled with Bootstrap and custom CSS, and utilizes Javascript, HTML, and React.js. Each user's profile describes their rating stats and has the option to change their info. After contemplating their stellar insignificance, the user can create a to-do list so that they're approaching their day with renewed prioritization.**
 
-*The incredible loading gif comes from digital artist: [Lin Jacqueline](https://linjacqueline.com/) *
 
 > “space_weather is like those meditation or ‘focus’ apps, but instead of becoming present by playing a Tibetan bell or water sounds, you’re confronted with the vastness of the universe and prompted to think about your place in it before setting your life goals. It all makes sense now.” -Sharat Chandra, data scientist
 
@@ -17,7 +16,7 @@
 
 ~~The world is flat.~~ The world is a donut?
 
-### tech stack
+### Tech Stack
 - Python 
 - PostgreSQL
 - Flask 
@@ -29,25 +28,34 @@
 - Javascript 
 - JQuery
 
-### features
-- Access current and historical data from NASA's OPEN APIs (EPIC & DONKI) in a pleasant and userful format
-- Use the to-do list to organize your life
-- Review your average Earth photo ratings on your unique profile page
+### Features
+- Users can access current and historical data from NASA's OPEN APIs (EPIC & DONKI) in a pleasant and userful format.
+- Users can use the to-do list to organize their life.
+- Users can review their average Earth photo ratings on their unique profile page.
 
 
 <!-- ### screenshots
 ![alt text](https://www.markdownguide.org/assets/images/tux.png) -->
 
 
-### installation instructions
+### Installation Instructions
 
-1. You can get your own API key from NASA [here](https://api.nasa.gov/)
-2. Or just use their demo key.
-3. pip3 install -r requirements.txt
+1. `git clone` the url for this project
+2. Create a virtual environment: `virtualenv env`
+3. Activate your virtual environment: `source env/bin/activate`
+4. `pip3 install -r requirements.txt`
+5. Start the server: `python3 server.py`
+6. You can get your own API key from NASA [here](https://api.nasa.gov/)
+7. Or just use their demo key.
+8. Make a `secrets.sh` file to hold the API key
 
-<!-- ### Code
 
-`code`
+*The incredible loading gif comes from digital artist: [Lin Jacqueline](https://linjacqueline.com/) *
+
+### About the Developer
+Scout is driven to understand their world and to build relationships. This has taken them from bicycle advocacy in Seattle to divinity school in Nashville,  from English instruction in Barcelona to tax preparation in Oregon. Scout is curious, adaptable, and a quick learner, and they're looking for the security and dignity that software development work offers. Ready for a stable career in a developing field, Scout loves  coding so far and is ready to take this step to live their life the way they want.
+
+
 
 ### Horizontal Rule
 
