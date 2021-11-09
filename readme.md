@@ -56,7 +56,7 @@
 Scout is driven to understand their world and to build relationships. This has taken them from bicycle advocacy in Seattle to divinity school in Nashville,  from English instruction in Barcelona to tax preparation in Oregon. Scout is curious, adaptable, and a quick learner, and they're looking for the security and dignity that software development work offers. Ready for a stable career in a developing field, Scout loves  coding so far and is ready to take this step to live their life the way they want.
 
 
-
+<!-- 
 ### Horizontal Rule
 
---- -->
+--- --> -->
