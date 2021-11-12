@@ -34,7 +34,7 @@
 <!-- ![main page, gif of coronal mass ejection](/home/hackbright/src/space-weather/static/Screen Shot 2021-11-09 at 3.36.18 PM.png) -->
 
 ### Features
-- Users can access current and historical data from NASA's OPEN APIs (EPIC & DONKI) in a pleasant and userful format.
+- Users can access current and historical data from NASA's OPEN APIs (EPIC & DONKI) in a pleasant and useful format.
 - Users can use the to-do list to organize their life.
 - Users can review their average Earth photo ratings on their unique profile page.
 
